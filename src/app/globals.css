@@ -1,54 +1,75 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap");
 @import "tailwindcss";
 
 :root {
-  --font-playfair: "Playfair Display", Georgia, serif;
-  --font-inter: "Inter", system-ui, sans-serif;
+  --gold: #C9A84C;
+  --gold-light: #E8D5A3;
+  --gold-dark: #9A7B2E;
+  --black: #0C0C0C;
+  --off-black: #111111;
+  --dark: #161616;
+  --card: #1A1A1A;
+  --border: rgba(201,168,76,0.15);
+  --text-muted: rgba(247,243,237,0.45);
+  --cream: #F7F3ED;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: #060B18;
-  color: #F7F3ED;
-  font-family: var(--font-inter);
+  background: var(--black);
+  color: var(--cream);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0A1628;
-}
-::-webkit-scrollbar-thumb {
-  background: #D4A832;
-  border-radius: 3px;
+.font-display {
+  font-family: "Cormorant Garamond", Georgia, serif;
 }
 
-/* Gold divider */
-.gold-line {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, #D4A832, #E8C265);
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
 
-/* Section padding */
-.section-pad {
-  padding: 100px 0;
-}
-
+/* Reusable */
+.section { padding: 120px 0; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
 @media (max-width: 768px) {
-  .section-pad {
-    padding: 64px 0;
-  }
+  .section { padding: 72px 0; }
+  .container { padding: 0 24px; }
 }
+
+.label {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.gold-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  display: block;
+}
+
+/* Hover line underline */
+.hover-line {
+  position: relative;
+  display: inline-block;
+}
+.hover-line::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.hover-line:hover::after { width: 100%; }

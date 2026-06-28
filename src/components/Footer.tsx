@@ -1,94 +1,68 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const subsidiaries = [
-  { name: "A&D Law Firm", url: "https://andlaw.vn", desc: "Pháp lý" },
-  { name: "A&D Accounting & Tax", url: "https://andacc.vn", desc: "Kế toán & Thuế" },
-  { name: "A&D Tech", url: "#", desc: "Công nghệ" },
-];
-
-const products = [
-  { name: "A&D OS", url: "https://andos.vn" },
-  { name: "QuyĐịnh.vn", url: "https://quydinh.vn" },
-  { name: "iAgree.vn", url: "https://iagree.vn" },
-];
-
 export default function Footer() {
   return (
-    <footer className="bg-navy-900 border-t border-gold-700/20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="block mb-5">
-              <Image
-                src="/images/ad-logo-white.png"
-                alt="A&D Group"
-                width={160}
-                height={60}
-                className="h-9 w-auto object-contain"
-              />
+    <footer className="bg-ink-900 border-t border-gold-muted">
+      <div className="container mx-auto max-w-[1280px] px-12 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+          {/* Brand col */}
+          <div className="lg:col-span-4">
+            <Link href="/">
+              <Image src="/images/ad-logo-white.png" alt="A&D Group" width={140} height={52}
+                className="h-9 w-auto object-contain mb-6" />
             </Link>
-            <p className="text-cream/50 text-sm leading-relaxed">
-              Kiến tạo giá trị bền vững qua Pháp lý – Kế toán – Công nghệ cho doanh nghiệp Việt Nam.
+            <p className="text-cream/40 text-sm leading-relaxed max-w-xs">
+              Hệ sinh thái dịch vụ chuyên nghiệp — Pháp lý, Kế toán, Công nghệ — kiến tạo giá trị bền vững cho doanh nghiệp Việt Nam.
             </p>
           </div>
 
           {/* Nav */}
-          <div>
-            <h4 className="text-gold-400 text-xs tracking-[0.2em] uppercase font-medium mb-5">
-              Về chúng tôi
-            </h4>
+          <div className="lg:col-span-2">
+            <p className="label mb-6">Điều hướng</p>
             <ul className="space-y-3">
-              {[
-                { href: "/about", label: "Giới thiệu" },
-                { href: "/leadership", label: "Ban lãnh đạo" },
-                { href: "/ecosystem", label: "Hệ sinh thái" },
-                { href: "/careers", label: "Tuyển dụng" },
-                { href: "/contact", label: "Liên hệ" },
-              ].map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-cream/50 text-sm hover:text-gold-400 transition-colors">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+              {["/about:Giới thiệu", "/leadership:Ban lãnh đạo", "/ecosystem:Hệ sinh thái", "/careers:Tuyển dụng", "/contact:Liên hệ"].map((s) => {
+                const [href, label] = s.split(":");
+                return (
+                  <li key={href}>
+                    <Link href={href} className="text-sm text-cream/45 hover:text-gold transition-colors">
+                      {label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
-          {/* Subsidiaries */}
-          <div>
-            <h4 className="text-gold-400 text-xs tracking-[0.2em] uppercase font-medium mb-5">
-              Công ty thành viên
-            </h4>
-            <ul className="space-y-3">
-              {subsidiaries.map((s) => (
-                <li key={s.name}>
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cream/50 text-sm hover:text-gold-400 transition-colors"
-                  >
-                    {s.name}
-                    <span className="text-cream/30 text-xs ml-1">— {s.desc}</span>
+          {/* Ecosystem */}
+          <div className="lg:col-span-3">
+            <p className="label mb-6">Công ty thành viên</p>
+            <ul className="space-y-3 mb-8">
+              {[
+                ["https://andlaw.vn", "A&D Law Firm"],
+                ["https://andacc.vn", "A&D Accounting & Tax"],
+                ["#", "A&D Tech"],
+              ].map(([url, name]) => (
+                <li key={name}>
+                  <a href={url} target={url !== "#" ? "_blank" : undefined} rel="noopener noreferrer"
+                    className="text-sm text-cream/45 hover:text-gold transition-colors">
+                    {name}
                   </a>
                 </li>
               ))}
             </ul>
-            <h4 className="text-gold-400 text-xs tracking-[0.2em] uppercase font-medium mt-6 mb-3">
-              Sản phẩm A&D Tech
-            </h4>
+            <p className="label mb-4">Sản phẩm</p>
             <ul className="space-y-2">
-              {products.map((p) => (
-                <li key={p.name}>
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cream/50 text-sm hover:text-gold-400 transition-colors"
-                  >
-                    {p.name}
+              {[
+                ["https://andos.vn", "A&D OS"],
+                ["https://quydinh.vn", "QuyĐịnh.vn"],
+                ["https://iagree.vn", "iAgree.vn"],
+              ].map(([url, name]) => (
+                <li key={name}>
+                  <a href={url} target="_blank" rel="noopener noreferrer"
+                    className="text-sm text-cream/45 hover:text-gold transition-colors">
+                    {name}
                   </a>
                 </li>
               ))}
@@ -96,35 +70,29 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
-            <h4 className="text-gold-400 text-xs tracking-[0.2em] uppercase font-medium mb-5">
-              Liên hệ
-            </h4>
-            <ul className="space-y-4 text-cream/50 text-sm">
-              <li className="leading-relaxed">
+          <div className="lg:col-span-3">
+            <p className="label mb-6">Liên hệ</p>
+            <address className="not-italic space-y-4">
+              <p className="text-sm text-cream/45 leading-relaxed">
                 Tầng 7, 520 Cách Mạng Tháng Tám<br />
                 P. Nhiêu Lộc, TP. Hồ Chí Minh
-              </li>
-              <li>
-                <a href="tel:0896868989" className="hover:text-gold-400 transition-colors">
-                  0896 868 989
-                </a>
-              </li>
-              <li>
-                <a href="mailto:support@andgroup.com.vn" className="hover:text-gold-400 transition-colors">
-                  support@andgroup.com.vn
-                </a>
-              </li>
-            </ul>
+              </p>
+              <a href="tel:0896868989" className="block text-sm text-cream/45 hover:text-gold transition-colors">
+                0896 868 989
+              </a>
+              <a href="mailto:support@andgroup.com.vn" className="block text-sm text-cream/45 hover:text-gold transition-colors">
+                support@andgroup.com.vn
+              </a>
+            </address>
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-gold-700/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-cream/30 text-xs tracking-wide">
+        <div className="mt-16 pt-8 border-t border-gold-muted flex flex-col md:flex-row items-center justify-between gap-3">
+          <p className="text-cream/25 text-xs tracking-wide">
             © {new Date().getFullYear()} A&D Group. All rights reserved.
           </p>
-          <p className="text-cream/20 text-xs">
-            Pháp lý · Kế toán · Công nghệ
+          <p className="text-cream/20 text-[11px] tracking-widest uppercase">
+            Law · Accounting · Technology
           </p>
         </div>
       </div>

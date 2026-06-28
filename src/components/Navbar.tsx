@@ -6,8 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
-  { href: "/", label: "Trang chủ" },
+const links = [
   { href: "/about", label: "Giới thiệu" },
   { href: "/leadership", label: "Ban lãnh đạo" },
   { href: "/ecosystem", label: "Hệ sinh thái" },
@@ -20,87 +19,94 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   const isHome = pathname === "/";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled || !isHome
-          ? "bg-navy-900/95 backdrop-blur-md border-b border-gold-700/20 shadow-lg"
+          ? "bg-ink-950/95 backdrop-blur-sm border-b border-gold-muted"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-20">
-        {/* Logo */}
-        <Link href="/" className="flex items-center group">
+      <div className="container mx-auto max-w-[1280px] px-12 flex items-center justify-between h-[72px]">
+
+        {/* Left nav */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {links.slice(0, 2).map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`text-[13px] tracking-wide hover-line transition-colors ${
+                pathname === l.href ? "text-gold" : "text-cream/60 hover:text-cream"
+              }`}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Logo center */}
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <Image
             src="/images/ad-logo-white.png"
             alt="A&D Group"
-            width={160}
-            height={60}
-            className="h-10 w-auto object-contain"
+            width={140}
+            height={52}
+            className="h-9 w-auto object-contain"
             priority
           />
         </Link>
 
-        {/* Desktop nav */}
+        {/* Right nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {links.slice(2).map((l) => (
             <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm tracking-wide transition-colors duration-200 ${
-                pathname === link.href
-                  ? "text-gold-400"
-                  : "text-cream/70 hover:text-cream"
+              key={l.href}
+              href={l.href}
+              className={`text-[13px] tracking-wide hover-line transition-colors ${
+                pathname === l.href ? "text-gold" : "text-cream/60 hover:text-cream"
               }`}
             >
-              {link.label}
+              {l.label}
             </Link>
           ))}
           <Link
             href="/contact"
-            className="ml-2 px-5 py-2 border border-gold-500 text-gold-400 text-sm tracking-wide hover:bg-gold-500 hover:text-navy-950 transition-all duration-300 rounded"
+            className="text-[13px] tracking-widest uppercase text-gold border border-gold/40 hover:border-gold hover:bg-gold/5 px-5 py-2 rounded-sm transition-all duration-300"
           >
             Liên hệ
           </Link>
         </nav>
 
-        {/* Mobile hamburger */}
+        {/* Mobile toggle */}
         <button
-          className="lg:hidden text-cream/70 hover:text-cream"
+          className="lg:hidden ml-auto text-cream/70 hover:text-cream"
           onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
         >
-          {open ? <X size={24} /> : <Menu size={24} />}
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer */}
       {open && (
-        <div className="lg:hidden bg-navy-900/98 border-t border-gold-700/20 px-6 py-6 flex flex-col gap-5">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className={`text-base tracking-wide ${
-                pathname === link.href ? "text-gold-400" : "text-cream/70"
-              }`}
-            >
-              {link.label}
+        <div className="lg:hidden bg-ink-950 border-t border-gold-muted px-6 py-8 flex flex-col gap-6">
+          <Link href="/" onClick={() => setOpen(false)}>
+            <Image src="/images/ad-logo-white.png" alt="A&D Group" width={120} height={45} className="h-8 w-auto mb-2" />
+          </Link>
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} onClick={() => setOpen(false)}
+              className="text-base text-cream/70 hover:text-gold transition-colors">
+              {l.label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            onClick={() => setOpen(false)}
-            className="px-5 py-2.5 border border-gold-500 text-gold-400 text-sm text-center tracking-wide hover:bg-gold-500 hover:text-navy-950 transition-all rounded"
-          >
+          <Link href="/contact" onClick={() => setOpen(false)}
+            className="text-sm text-gold border border-gold/40 px-5 py-2.5 text-center rounded-sm">
             Liên hệ
           </Link>
         </div>

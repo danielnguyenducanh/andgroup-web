@@ -5,12 +5,11 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "A&D Group — Kiến tạo giá trị bền vững",
-  description:
-    "A&D Group là tập đoàn tích hợp Pháp lý – Kế toán – Công nghệ, kiến tạo giải pháp toàn diện cho doanh nghiệp Việt Nam.",
-  keywords: "A&D Group, luật, kế toán, công nghệ, pháp lý, doanh nghiệp",
+  description: "Hệ sinh thái dịch vụ chuyên nghiệp: Pháp lý, Kế toán & Thuế, Công nghệ — kiến tạo giá trị bền vững cho doanh nghiệp Việt Nam.",
+  keywords: "A&D Group, luật, kế toán, thuế, công nghệ, pháp lý, doanh nghiệp Việt Nam",
   openGraph: {
     title: "A&D Group",
-    description: "Kiến tạo giá trị bền vững qua Pháp lý – Kế toán – Công nghệ",
+    description: "Pháp lý – Kế toán – Công nghệ",
     url: "https://andgroup.com.vn",
     siteName: "A&D Group",
     locale: "vi_VN",
@@ -18,14 +17,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className="scroll-smooth">
-      <body className="bg-navy-950 text-cream antialiased">
+    <html lang="vi">
+      <body>
         <Navbar />
         <main>{children}</main>
         <Footer />
