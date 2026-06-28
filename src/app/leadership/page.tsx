@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Ban lãnh đạo — A&D Group",
@@ -48,10 +49,13 @@ export default function LeadershipPage() {
                 {/* Photo panel */}
                 <div className="bg-gradient-to-br from-navy-800 to-navy-900 border-b md:border-b-0 md:border-r border-gold-700/15 flex flex-col items-center justify-center p-12">
                   {/* Avatar */}
-                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gold-700/30 to-gold-500/10 border-2 border-gold-500/50 flex items-center justify-center mb-6">
-                    <span className="font-serif text-4xl font-bold text-gold-400">
-                      {leader.initials}
-                    </span>
+                  <div className="w-40 h-40 rounded-full overflow-hidden border-2 border-gold-500/40 mb-6 relative">
+                    <Image
+                      src="/images/leadership/daniel-nguyen.jpg"
+                      alt={leader.name}
+                      fill
+                      className="object-cover object-top"
+                    />
                   </div>
                   <h2 className="font-serif text-xl font-semibold text-cream text-center mb-1">
                     {leader.name}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ChevronDown, Scale, Calculator, Cpu, ExternalLink } from "lucide-react";
 
 /* ── Animated counter ── */
@@ -99,13 +100,16 @@ export default function Home() {
         />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center pt-28 pb-20">
-          {/* Label */}
-          <div className="inline-flex items-center gap-2 mb-8">
-            <div className="w-8 h-px bg-gold-500" />
-            <span className="text-gold-400 text-xs tracking-[0.3em] uppercase font-medium">
-              A&D Group — Tập đoàn
-            </span>
-            <div className="w-8 h-px bg-gold-500" />
+          {/* Logo */}
+          <div className="flex justify-center mb-10">
+            <Image
+              src="/images/ad-logo-white.png"
+              alt="A&D Group"
+              width={240}
+              height={90}
+              className="h-16 w-auto object-contain"
+              priority
+            />
           </div>
 
           {/* Headline */}
@@ -280,9 +284,14 @@ export default function Home() {
           {/* Leadership card */}
           <div className="max-w-xs mx-auto">
             <div className="bg-navy-900 border border-gold-700/20 rounded-2xl p-8 hover:border-gold-500/40 transition-all duration-300">
-              {/* Avatar placeholder */}
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-gold-700/30 to-gold-500/10 border-2 border-gold-500/40 mx-auto mb-5 flex items-center justify-center">
-                <span className="font-serif text-2xl font-bold text-gold-400">DN</span>
+              {/* Avatar */}
+              <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-gold-500/40 mx-auto mb-5 relative">
+                <Image
+                  src="/images/leadership/daniel-nguyen.jpg"
+                  alt="Daniel Nguyen"
+                  fill
+                  className="object-cover object-top"
+                />
               </div>
               <h3 className="font-serif text-lg font-semibold text-cream mb-1">Daniel Nguyen</h3>
               <p className="text-gold-400 text-sm tracking-wide mb-4">Chairman</p>

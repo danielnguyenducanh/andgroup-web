@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const subsidiaries = [
   { name: "A&D Law Firm", url: "https://andlaw.vn", desc: "Pháp lý" },
@@ -19,14 +20,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 border border-gold-500 rounded flex items-center justify-center">
-                <span className="text-gold-400 font-serif font-bold text-sm">A&D</span>
-              </div>
-              <div>
-                <div className="text-cream font-serif font-semibold text-lg leading-tight">A&D Group</div>
-                <div className="text-gold-500 text-[10px] tracking-[0.2em] uppercase">Tập đoàn</div>
-              </div>
+            <Link href="/" className="block mb-5">
+              <Image
+                src="/images/ad-logo-white.png"
+                alt="A&D Group"
+                width={160}
+                height={60}
+                className="h-9 w-auto object-contain"
+              />
             </Link>
             <p className="text-cream/50 text-sm leading-relaxed">
               Kiến tạo giá trị bền vững qua Pháp lý – Kế toán – Công nghệ cho doanh nghiệp Việt Nam.

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
@@ -36,20 +37,15 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-20">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 border border-gold-500 rounded flex items-center justify-center">
-            <span className="text-gold-400 font-serif font-bold text-sm leading-none">
-              A&D
-            </span>
-          </div>
-          <div>
-            <div className="text-cream font-serif font-semibold text-lg leading-tight tracking-wide">
-              A&D Group
-            </div>
-            <div className="text-gold-500 text-[10px] tracking-[0.2em] uppercase">
-              Tập đoàn
-            </div>
-          </div>
+        <Link href="/" className="flex items-center group">
+          <Image
+            src="/images/ad-logo-white.png"
+            alt="A&D Group"
+            width={160}
+            height={60}
+            className="h-10 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}
