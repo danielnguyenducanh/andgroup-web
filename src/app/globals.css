@@ -1,17 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
-  --gold: #C9A84C;
-  --gold-light: #E8D5A3;
-  --gold-dark: #9A7B2E;
-  --black: #0C0C0C;
-  --off-black: #111111;
-  --dark: #161616;
-  --card: #1A1A1A;
-  --border: rgba(201,168,76,0.15);
-  --text-muted: rgba(247,243,237,0.45);
-  --cream: #F7F3ED;
+  --bg-primary: #FAFAF8;
+  --bg-secondary: #F2EDE6;
+  --bg-dark: #0F0F0F;
+  --bg-dark-card: #181818;
+  --gold: #B8962E;
+  --gold-light: #D4A832;
+  --gold-muted: rgba(184,150,46,0.15);
+  --text-primary: #1A1A1A;
+  --text-secondary: #5A5A5A;
+  --text-muted: #9A9A9A;
+  --border: #E8E0D5;
+  --border-dark: rgba(255,255,255,0.08);
+  --white: #FFFFFF;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,47 +22,185 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--black);
-  color: var(--cream);
-  font-family: "DM Sans", system-ui, sans-serif;
-  font-weight: 300;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 .font-display {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Georgia, serif;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--black); }
-::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
 
-/* Reusable */
-.section { padding: 120px 0; }
+/* Layout */
+.section { padding: 100px 0; }
+.section-sm { padding: 64px 0; }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
 @media (max-width: 768px) {
-  .section { padding: 72px 0; }
+  .section { padding: 64px 0; }
+  .section-sm { padding: 48px 0; }
   .container { padding: 0 24px; }
 }
 
+/* Backgrounds */
+.bg-primary { background: var(--bg-primary); }
+.bg-secondary { background: var(--bg-secondary); }
+.bg-dark { background: var(--bg-dark); color: var(--white); }
+.bg-white { background: var(--white); }
+
+/* Typography */
 .label {
-  font-size: 10px;
-  letter-spacing: 0.25em;
+  font-size: 11px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  font-weight: 500;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
 }
 
+.label-dark {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+}
+
+.display-xl {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.display-lg {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.display-md {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Gold rule */
 .gold-rule {
-  width: 48px;
-  height: 1px;
+  width: 40px;
+  height: 2px;
   background: var(--gold);
   display: block;
 }
 
-/* Hover line underline */
+.gold-rule-light {
+  width: 40px;
+  height: 2px;
+  background: var(--gold-light);
+  display: block;
+}
+
+/* Buttons */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+.btn-gold:hover {
+  background: #A07828;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.btn-outline-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: transparent;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+.btn-outline-light:hover {
+  border-color: var(--gold-light);
+  color: var(--gold-light);
+}
+
+/* Cards */
+.card-light {
+  background: var(--white);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-light:hover {
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.card-dark {
+  background: var(--bg-dark-card);
+  border: 1px solid var(--border-dark);
+  transition: border-color 0.25s ease;
+}
+.card-dark:hover {
+  border-color: rgba(212,168,50,0.3);
+}
+
+/* Divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Hover underline */
 .hover-line {
   position: relative;
   display: inline-block;
@@ -73,3 +214,21 @@ body {
   transition: width 0.3s ease;
 }
 .hover-line:hover::after { width: 100%; }
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.7s ease forwards; }

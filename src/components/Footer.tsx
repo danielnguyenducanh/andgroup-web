@@ -1,101 +1,178 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 
+const companies = [
+  { name: "A&D Law Firm", url: "https://andlaw.vn" },
+  { name: "A&D Accounting & Tax", url: "https://andacc.vn" },
+  { name: "A&D Tech", url: "#" },
+];
+
+const products = [
+  { name: "A&D OS", url: "https://andos.vn" },
+  { name: "QuyĐịnh.vn", url: "https://quydinh.vn" },
+  { name: "iAgree.vn", url: "https://iagree.vn" },
+];
+
+const navLinks = [
+  { href: "/about", label: "Về chúng tôi" },
+  { href: "/ecosystem", label: "Hệ sinh thái" },
+  { href: "/leadership", label: "Lãnh đạo" },
+  { href: "/careers", label: "Tuyển dụng" },
+  { href: "/contact", label: "Liên hệ" },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-ink-900 border-t border-gold-muted">
-      <div className="container mx-auto max-w-[1280px] px-12 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-
-          {/* Brand col */}
-          <div className="lg:col-span-4">
-            <Link href="/">
-              <Image src="/images/ad-logo-white.png" alt="A&D Group" width={140} height={52}
-                className="h-9 w-auto object-contain mb-6" />
-            </Link>
-            <p className="text-cream/40 text-sm leading-relaxed max-w-xs">
-              Hệ sinh thái dịch vụ chuyên nghiệp — Pháp lý, Kế toán, Công nghệ — kiến tạo giá trị bền vững cho doanh nghiệp Việt Nam.
+    <footer style={{ background: "var(--bg-dark)", color: "rgba(255,255,255,0.75)" }}>
+      {/* Main footer */}
+      <div className="container" style={{ padding: "72px 48px 48px" }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "2fr 1fr 1.5fr 1.5fr",
+          gap: 48,
+        }}>
+          {/* Col 1: Brand */}
+          <div>
+            <Image
+              src="/images/ad-logo-white.png"
+              alt="A&D Group"
+              width={120}
+              height={40}
+              style={{ objectFit: "contain", height: 40, width: "auto", marginBottom: 20 }}
+            />
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: "rgba(255,255,255,0.55)", maxWidth: 280 }}>
+              Tập đoàn tư vấn chuyên sâu gồm pháp lý, kế toán &amp; thuế và công nghệ — phục vụ doanh nghiệp Việt Nam phát triển bền vững.
             </p>
           </div>
 
-          {/* Nav */}
-          <div className="lg:col-span-2">
-            <p className="label mb-6">Điều hướng</p>
-            <ul className="space-y-3">
-              {["/about:Giới thiệu", "/leadership:Ban lãnh đạo", "/ecosystem:Hệ sinh thái", "/careers:Tuyển dụng", "/contact:Liên hệ"].map((s) => {
-                const [href, label] = s.split(":");
-                return (
-                  <li key={href}>
-                    <Link href={href} className="text-sm text-cream/45 hover:text-gold transition-colors">
-                      {label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          {/* Ecosystem */}
-          <div className="lg:col-span-3">
-            <p className="label mb-6">Công ty thành viên</p>
-            <ul className="space-y-3 mb-8">
-              {[
-                ["https://andlaw.vn", "A&D Law Firm"],
-                ["https://andacc.vn", "A&D Accounting & Tax"],
-                ["#", "A&D Tech"],
-              ].map(([url, name]) => (
-                <li key={name}>
-                  <a href={url} target={url !== "#" ? "_blank" : undefined} rel="noopener noreferrer"
-                    className="text-sm text-cream/45 hover:text-gold transition-colors">
-                    {name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <p className="label mb-4">Sản phẩm</p>
-            <ul className="space-y-2">
-              {[
-                ["https://andos.vn", "A&D OS"],
-                ["https://quydinh.vn", "QuyĐịnh.vn"],
-                ["https://iagree.vn", "iAgree.vn"],
-              ].map(([url, name]) => (
-                <li key={name}>
-                  <a href={url} target="_blank" rel="noopener noreferrer"
-                    className="text-sm text-cream/45 hover:text-gold transition-colors">
-                    {name}
-                  </a>
+          {/* Col 2: Navigation */}
+          <div>
+            <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 20, fontWeight: 600 }}>
+              Điều hướng
+            </p>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12 }}>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    style={{
+                      fontSize: 14,
+                      color: "rgba(255,255,255,0.6)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="lg:col-span-3">
-            <p className="label mb-6">Liên hệ</p>
-            <address className="not-italic space-y-4">
-              <p className="text-sm text-cream/45 leading-relaxed">
-                Tầng 7, 520 Cách Mạng Tháng Tám<br />
-                P. Nhiêu Lộc, TP. Hồ Chí Minh
-              </p>
-              <a href="tel:0896868989" className="block text-sm text-cream/45 hover:text-gold transition-colors">
-                0896 868 989
-              </a>
-              <a href="mailto:support@andgroup.com.vn" className="block text-sm text-cream/45 hover:text-gold transition-colors">
-                support@andgroup.com.vn
-              </a>
-            </address>
+          {/* Col 3: Companies + Products */}
+          <div>
+            <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 20, fontWeight: 600 }}>
+              Công ty thành viên
+            </p>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
+              {companies.map((c) => (
+                <li key={c.name}>
+                  <a
+                    href={c.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
+                  >
+                    {c.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 16, fontWeight: 600 }}>
+              Sản phẩm công nghệ
+            </p>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+              {products.map((p) => (
+                <li key={p.name}>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
+                  >
+                    {p.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
 
-        <div className="mt-16 pt-8 border-t border-gold-muted flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-cream/25 text-xs tracking-wide">
-            © {new Date().getFullYear()} A&D Group. All rights reserved.
-          </p>
-          <p className="text-cream/20 text-[11px] tracking-widest uppercase">
-            Law · Accounting · Technology
-          </p>
+          {/* Col 4: Contact */}
+          <div>
+            <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 20, fontWeight: 600 }}>
+              Liên hệ
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Địa chỉ</p>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
+                  Tầng 10, Tòa nhà A&D<br />
+                  TP. Hồ Chí Minh, Việt Nam
+                </p>
+              </div>
+              <div>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Email</p>
+                <a href="mailto:info@andgroup.com.vn" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
+                  info@andgroup.com.vn
+                </a>
+              </div>
+              <div>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Website</p>
+                <a href="https://andgroup.com.vn" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
+                  andgroup.com.vn
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Bottom bar */}
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+        <div className="container" style={{
+          padding: "20px 48px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 12,
+        }}>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.3)" }}>
+            © {new Date().getFullYear()} A&D Group. All rights reserved.
+          </p>
+          <div style={{ display: "flex", gap: 24 }}>
+            <Link href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>
+              Chính sách bảo mật
+            </Link>
+            <Link href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>
+              Điều khoản sử dụng
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          footer > div:first-child > div {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (max-width: 600px) {
+          footer > div:first-child > div {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

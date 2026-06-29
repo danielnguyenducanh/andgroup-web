@@ -1,135 +1,169 @@
-import { Metadata } from "next";
-import { ArrowRight, MapPin, Briefcase, Clock } from "lucide-react";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Tuyển dụng — A&D Group",
-  description: "Cơ hội nghề nghiệp tại A&D Group và các công ty thành viên.",
-};
-
-const openings = [
+const positions = [
   {
-    title: "Luật sư Doanh nghiệp",
+    dept: "Pháp lý",
+    deptColor: "#1A5276",
+    title: "Luật sư tư vấn doanh nghiệp",
     company: "A&D Law Firm",
-    location: "TP. Hồ Chí Minh",
     type: "Toàn thời gian",
-    level: "Senior",
-    desc: "Tư vấn pháp lý doanh nghiệp, soạn thảo hợp đồng, hỗ trợ M&A và giải quyết tranh chấp thương mại.",
+    location: "TP. Hồ Chí Minh",
+    desc: "Tư vấn pháp lý cho doanh nghiệp, soạn thảo hợp đồng, hỗ trợ giao dịch M&A.",
+    requirements: ["Tốt nghiệp cử nhân luật trở lên", "2+ năm kinh nghiệm tư vấn doanh nghiệp", "Tiếng Anh thương mại"],
   },
   {
-    title: "Kế toán Doanh nghiệp",
+    dept: "Kế toán",
+    deptColor: "#1E6B3C",
+    title: "Kế toán trưởng dịch vụ",
     company: "A&D Accounting & Tax",
-    location: "TP. Hồ Chí Minh",
     type: "Toàn thời gian",
-    level: "Mid-Senior",
-    desc: "Lập báo cáo tài chính, khai báo thuế, hỗ trợ kiểm toán nội bộ cho danh mục khách hàng doanh nghiệp.",
+    location: "TP. Hồ Chí Minh",
+    desc: "Quản lý dịch vụ kế toán cho portfolio khách hàng doanh nghiệp vừa và lớn.",
+    requirements: ["Bằng kế toán/kiểm toán", "5+ năm kinh nghiệm kế toán doanh nghiệp", "Chứng chỉ CPA là lợi thế"],
   },
   {
-    title: "Software Engineer (Full-stack)",
+    dept: "Công nghệ",
+    deptColor: "#7D3C98",
+    title: "Full-stack Developer",
     company: "A&D Tech",
-    location: "Remote / TP. HCM",
     type: "Toàn thời gian",
-    level: "Mid",
-    desc: "Xây dựng và phát triển các sản phẩm LegalTech: QuyĐịnh.vn, iAgree.vn, A&D OS. Stack: Next.js, Node.js, AI/ML.",
+    location: "TP. HCM / Remote",
+    desc: "Phát triển và duy trì các sản phẩm A&D OS, QuyĐịnh.vn, iAgree.vn.",
+    requirements: ["React/Next.js và Node.js", "2+ năm kinh nghiệm", "Kinh nghiệm với AI/ML là lợi thế"],
+  },
+  {
+    dept: "Công nghệ",
+    deptColor: "#7D3C98",
+    title: "AI/Legal Tech Engineer",
+    company: "A&D Tech",
+    type: "Toàn thời gian",
+    location: "TP. HCM / Remote",
+    desc: "Xây dựng các tính năng AI cho QuyĐịnh.vn — embedding, RAG, và NLP cho văn bản pháp luật.",
+    requirements: ["Python, PyTorch hoặc TensorFlow", "Kinh nghiệm NLP và LLM", "Hiểu biết về văn bản pháp luật là lợi thế"],
   },
 ];
 
 const perks = [
-  { emoji: "💼", title: "Môi trường chuyên nghiệp", desc: "Làm việc cùng đội ngũ luật sư, kế toán và kỹ sư hàng đầu." },
-  { emoji: "📈", title: "Lộ trình phát triển rõ ràng", desc: "Cơ hội thăng tiến minh bạch, đánh giá 2 lần/năm." },
-  { emoji: "🎓", title: "Đào tạo liên tục", desc: "Budget học tập, workshop và seminar định kỳ." },
-  { emoji: "🏥", title: "Phúc lợi toàn diện", desc: "BHXH, BHYT, bảo hiểm sức khỏe cao cấp." },
+  { icon: "💰", title: "Lương cạnh tranh", desc: "Mức thu nhập hấp dẫn, xem xét tăng lương định kỳ 6 tháng." },
+  { icon: "📚", title: "Đào tạo liên tục", desc: "Budget học tập, tham gia hội thảo và khóa đào tạo trong và ngoài nước." },
+  { icon: "🏥", title: "Bảo hiểm sức khỏe", desc: "Gói bảo hiểm sức khỏe cao cấp cho nhân viên và người thân." },
+  { icon: "🌏", title: "Môi trường chuyên nghiệp", desc: "Làm việc với các chuyên gia hàng đầu trong pháp lý, kế toán và công nghệ." },
+  { icon: "🚀", title: "Cơ hội phát triển", desc: "Lộ trình thăng tiến rõ ràng, cơ hội dẫn dắt đội nhóm." },
+  { icon: "⚡", title: "Linh hoạt thời gian", desc: "Một số vị trí hỗ trợ remote/hybrid, tập trung vào kết quả." },
 ];
 
 export default function CareersPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-36 pb-20 bg-gradient-to-b from-navy-900 to-navy-950 border-b border-gold-700/15">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 mb-6">
-            <div className="w-6 h-px bg-gold-500" />
-            <span className="text-gold-400 text-xs tracking-[0.3em] uppercase">Tuyển dụng</span>
-            <div className="w-6 h-px bg-gold-500" />
+      <section style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
+        <div className="container">
+          <div style={{ maxWidth: 640 }}>
+            <span className="label" style={{ display: "block", marginBottom: 20 }}>Tuyển dụng</span>
+            <h1 className="font-display" style={{
+              fontSize: "clamp(40px, 5vw, 68px)",
+              fontWeight: 500,
+              color: "var(--text-primary)",
+              lineHeight: 1.1,
+              marginBottom: 24,
+            }}>
+              Cùng nhau xây dựng<br />
+              <em style={{ color: "var(--gold)", fontStyle: "italic" }}>tương lai doanh nghiệp</em>
+            </h1>
+            <p style={{ fontSize: 17, color: "var(--text-secondary)", lineHeight: 1.8 }}>
+              A&D Group tìm kiếm những người tài năng, đam mê và muốn tạo ra giá trị thực sự cho doanh nghiệp Việt Nam.
+            </p>
           </div>
-          <h1 className="font-serif text-4xl md:text-5xl font-semibold text-cream mb-5">
-            Gia nhập A&D Group
-          </h1>
-          <p className="text-cream/55 text-lg leading-relaxed max-w-2xl mx-auto">
-            Cùng chúng tôi xây dựng tương lai của dịch vụ pháp lý, kế toán và công nghệ tại Việt Nam.
-          </p>
         </div>
       </section>
 
       {/* Perks */}
-      <section className="py-16 bg-navy-900 border-b border-gold-700/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="section-sm" style={{ background: "var(--bg-secondary)" }}>
+        <div className="container">
+          <div style={{ marginBottom: 40, textAlign: "center" }}>
+            <h2 className="font-display display-md" style={{ color: "var(--text-primary)" }}>Tại sao gia nhập A&D Group?</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {perks.map((p) => (
-              <div key={p.title} className="text-center px-4">
-                <div className="text-3xl mb-3">{p.emoji}</div>
-                <h3 className="text-cream font-semibold text-sm mb-2">{p.title}</h3>
-                <p className="text-cream/45 text-xs leading-relaxed">{p.desc}</p>
+              <div key={p.title} style={{ padding: "28px 24px", background: "var(--white)", border: "1px solid var(--border)" }}>
+                <div style={{ fontSize: 28, marginBottom: 12 }}>{p.icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>{p.title}</h3>
+                <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Openings */}
-      <section className="section-pad bg-navy-950">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="mb-10">
-            <div className="gold-line mb-5" />
-            <h2 className="font-serif text-2xl font-semibold text-cream mb-2">Vị trí đang tuyển</h2>
-            <p className="text-cream/45 text-sm">{openings.length} vị trí · Cập nhật tháng 6/2026</p>
+      {/* Open positions */}
+      <section className="section" style={{ background: "var(--white)" }}>
+        <div className="container">
+          <div style={{ marginBottom: 48 }}>
+            <span className="label" style={{ display: "block", marginBottom: 16 }}>Vị trí tuyển dụng</span>
+            <h2 className="font-display display-lg" style={{ color: "var(--text-primary)" }}>
+              Vị trí đang mở
+            </h2>
           </div>
-
-          <div className="space-y-4">
-            {openings.map((job) => (
-              <div
-                key={job.title}
-                className="group bg-navy-900 border border-gold-700/15 hover:border-gold-500/30 rounded-xl p-7 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(212,168,50,0.06)]"
-              >
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <h3 className="font-serif text-lg font-semibold text-cream">{job.title}</h3>
-                      <span className="px-2 py-0.5 bg-gold-700/15 text-gold-400 text-[10px] tracking-wide rounded uppercase">
-                        {job.level}
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            {positions.map((pos) => (
+              <div key={pos.title} className="card-light" style={{ padding: "32px 36px" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                      <span style={{
+                        fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase",
+                        color: pos.deptColor, background: pos.deptColor + "15", padding: "3px 9px",
+                      }}>
+                        {pos.dept}
+                      </span>
+                      <span style={{ fontSize: 13, color: "var(--text-muted)" }}>{pos.company}</span>
+                    </div>
+                    <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>{pos.title}</h3>
+                    <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: 16, maxWidth: 560 }}>{pos.desc}</p>
+                    <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+                      <span style={{ fontSize: 13, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 6 }}>
+                        📍 {pos.location}
+                      </span>
+                      <span style={{ fontSize: 13, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 6 }}>
+                        ⏰ {pos.type}
                       </span>
                     </div>
-                    <p className="text-gold-400/80 text-sm mb-3">{job.company}</p>
-                    <p className="text-cream/55 text-sm leading-relaxed mb-4">{job.desc}</p>
-                    <div className="flex items-center gap-5 text-cream/35 text-xs flex-wrap">
-                      <span className="flex items-center gap-1.5">
-                        <MapPin size={12} /> {job.location}
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <Briefcase size={12} /> {job.type}
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <Clock size={12} /> Đang tuyển
-                      </span>
+                    <div style={{ marginTop: 16 }}>
+                      <p style={{ fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 600, marginBottom: 8 }}>
+                        Yêu cầu
+                      </p>
+                      <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+                        {pos.requirements.map((r) => (
+                          <li key={r} style={{ fontSize: 13, color: "var(--text-secondary)", display: "flex", alignItems: "flex-start", gap: 8 }}>
+                            <span style={{ color: "var(--gold)", flexShrink: 0 }}>✓</span> {r}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                  <Link
-                    href="/contact"
-                    className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 border border-gold-500/30 hover:border-gold-400/60 hover:bg-gold-500/5 text-gold-400 text-sm rounded transition-all"
-                  >
-                    Ứng tuyển <ArrowRight size={13} />
-                  </Link>
+                  <div style={{ flexShrink: 0 }}>
+                    <Link href="/contact" className="btn-gold" style={{ padding: "12px 24px", fontSize: 13, whiteSpace: "nowrap" }}>
+                      Ứng tuyển →
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-10 p-6 border border-gold-700/10 border-dashed rounded-xl text-center">
-            <p className="text-cream/40 text-sm mb-2">Không thấy vị trí phù hợp?</p>
-            <Link href="/contact" className="text-gold-400 text-sm hover:text-gold-300 transition-colors">
-              Gửi CV tự nguyện →
-            </Link>
-          </div>
+      {/* CTA */}
+      <section className="section" style={{ background: "var(--bg-dark)", textAlign: "center" }}>
+        <div className="container" style={{ maxWidth: 600, margin: "0 auto" }}>
+          <span className="label-dark" style={{ display: "block", marginBottom: 16 }}>Không thấy vị trí phù hợp?</span>
+          <h2 className="font-display display-md" style={{ color: "var(--white)", marginBottom: 20 }}>
+            Gửi hồ sơ tự do
+          </h2>
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", marginBottom: 36, lineHeight: 1.7 }}>
+            Chúng tôi luôn tìm kiếm người tài. Gửi CV và thư giới thiệu — chúng tôi sẽ liên hệ khi có vị trí phù hợp.
+          </p>
+          <Link href="/contact" className="btn-gold">Gửi hồ sơ →</Link>
         </div>
       </section>
     </>

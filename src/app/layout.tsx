@@ -4,12 +4,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "A&D Group — Kiến tạo giá trị bền vững",
-  description: "Hệ sinh thái dịch vụ chuyên nghiệp: Pháp lý, Kế toán & Thuế, Công nghệ — kiến tạo giá trị bền vững cho doanh nghiệp Việt Nam.",
-  keywords: "A&D Group, luật, kế toán, thuế, công nghệ, pháp lý, doanh nghiệp Việt Nam",
+  title: "A&D Group — Pháp lý · Kế toán · Công nghệ",
+  description:
+    "A&D Group là tập đoàn tư vấn chuyên sâu gồm A&D Law Firm, A&D Accounting & Tax và A&D Tech — kiến tạo hệ sinh thái pháp lý, tài chính và công nghệ cho doanh nghiệp Việt Nam.",
   openGraph: {
     title: "A&D Group",
-    description: "Pháp lý – Kế toán – Công nghệ",
+    description: "Pháp lý · Kế toán · Công nghệ",
     url: "https://andgroup.com.vn",
     siteName: "A&D Group",
     locale: "vi_VN",
@@ -17,7 +17,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="vi">
       <body>
