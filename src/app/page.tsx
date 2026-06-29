@@ -1,447 +1,247 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-/* ───────── DATA ───────── */
-const stats = [
-  { value: "10+", label: "Năm kinh nghiệm" },
-  { value: "500+", label: "Doanh nghiệp phục vụ" },
-  { value: "3", label: "Công ty thành viên" },
-  { value: "50+", label: "Chuyên gia" },
-];
+/* ── animated counter ── */
+function Count({ to, suffix = "" }: { to: number; suffix?: string }) {
+  const [n, setN] = useState(0);
+  const el = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      obs.disconnect();
+      let v = 0;
+      const step = Math.ceil(to / 55);
+      const t = setInterval(() => { v = Math.min(v + step, to); setN(v); if (v >= to) clearInterval(t); }, 28);
+    }, { threshold: 0.5 });
+    if (el.current) obs.observe(el.current);
+    return () => obs.disconnect();
+  }, [to]);
+  return <span ref={el}>{n}{suffix}</span>;
+}
 
-const companies = [
-  {
-    logo: "/images/project/andlaw-logo.png",
-    logoType: "image",
-    name: "A&D Law Firm",
-    tagline: "Tư vấn pháp lý toàn diện cho doanh nghiệp",
-    services: [
-      "Tư vấn pháp lý thường xuyên",
-      "Soạn thảo & rà soát hợp đồng",
-      "Tranh tụng & giải quyết tranh chấp",
-      "Pháp lý đầu tư & M&A",
-    ],
-    url: "https://andlaw.vn",
-    tag: "Pháp lý",
-    tagColor: "#1A5276",
-  },
-  {
-    logo: "/images/project/andacc-logo.png",
-    logoType: "image",
-    name: "A&D Accounting & Tax",
-    tagline: "Kế toán, thuế và tài chính doanh nghiệp",
-    services: [
-      "Dịch vụ kế toán trọn gói",
-      "Tư vấn thuế & quyết toán thuế",
-      "Kiểm toán nội bộ",
-      "Lập báo cáo tài chính",
-    ],
-    url: "https://andacc.vn",
-    tag: "Kế toán",
-    tagColor: "#1E6B3C",
-  },
-  {
-    logo: null,
-    logoType: "text",
-    name: "A&D Tech",
-    tagline: "Công nghệ pháp lý & quản trị doanh nghiệp",
-    services: [
-      "Phần mềm ERP doanh nghiệp",
-      "Nền tảng tra cứu pháp luật AI",
-      "Ký kết hợp đồng điện tử",
-      "Chuyển đổi số pháp lý",
-    ],
-    url: "https://andos.vn",
-    tag: "Công nghệ",
-    tagColor: "#7D3C98",
-  },
-];
-
-const products = [
-  {
-    tag: "ERP",
-    name: "A&D OS",
-    desc: "Hệ thống quản trị doanh nghiệp tích hợp — HR, kế toán, hợp đồng và workflow trên một nền tảng.",
-    url: "https://andos.vn",
-    accent: "#D4A832",
-  },
-  {
-    tag: "Legal AI",
-    name: "QuyĐịnh.vn",
-    desc: "Tra cứu văn bản pháp luật Việt Nam bằng AI — nhanh, chính xác, cập nhật liên tục.",
-    url: "https://quydinh.vn",
-    accent: "#D4A832",
-  },
-  {
-    tag: "Platform",
-    name: "iAgree.vn",
-    desc: "Ký kết hợp đồng điện tử có giá trị pháp lý — an toàn, minh bạch, lưu trữ vĩnh viễn.",
-    url: "https://iagree.vn",
-    accent: "#D4A832",
-  },
-];
-
-const values = [
-  { n: "01", title: "Chính trực", desc: "Trung thực và minh bạch trong mọi tư vấn, không có xung đột lợi ích." },
-  { n: "02", title: "Chuyên môn sâu", desc: "Đội ngũ luật sư, kế toán và kỹ sư được đào tạo bài bản, liên tục cập nhật." },
-  { n: "03", title: "Lấy khách hàng làm trung tâm", desc: "Mọi giải pháp được thiết kế riêng cho từng doanh nghiệp, không áp dụng đồng loạt." },
-  { n: "04", title: "Đổi mới liên tục", desc: "Ứng dụng công nghệ để nâng cao hiệu quả dịch vụ và trải nghiệm khách hàng." },
-];
-
-/* ───────── PAGE ───────── */
-export default function HomePage() {
+export default function Home() {
   return (
     <>
-      {/* ──────────── HERO ──────────── */}
-      <section
-        style={{
-          background: "var(--bg-primary)",
-          paddingTop: 120,
-          paddingBottom: 0,
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <div className="container" style={{ width: "100%" }}>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 64,
-            alignItems: "center",
-            minHeight: "calc(100vh - 120px)",
-          }}>
-            {/* Left */}
-            <div style={{ paddingBottom: 80 }}>
-              <span className="label" style={{ display: "block", marginBottom: 20 }}>
+      {/* ══════════════════════════════
+          HERO — split layout
+      ══════════════════════════════ */}
+      <section style={{ background: "var(--bg-primary)", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 72 }}>
+        <div className="container" style={{ width: "100%", paddingTop: 40, paddingBottom: 40 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "55% 1fr", gap: 80, alignItems: "center", minHeight: "calc(100vh - 160px)" }}>
+
+            {/* ── LEFT ── */}
+            <div>
+              <p className="label" style={{ color: "var(--gold)", marginBottom: 28, display: "flex", alignItems: "center", gap: 12 }}>
+                <span style={{ width: 40, height: 1, background: "var(--gold)", display: "inline-block" }} />
                 Tập đoàn A&D Group
-              </span>
-              <h1 className="font-display" style={{
-                fontSize: "clamp(44px, 5.5vw, 76px)",
-                fontWeight: 500,
-                lineHeight: 1.1,
-                color: "var(--text-primary)",
-                marginBottom: 24,
-                letterSpacing: "-0.02em",
-              }}>
-                Pháp lý · Kế toán<br />
-                <em style={{ color: "var(--gold)", fontStyle: "italic" }}>& Công nghệ</em>
-              </h1>
-              <p style={{
-                fontSize: 17,
-                lineHeight: 1.7,
-                color: "var(--text-secondary)",
-                maxWidth: 480,
-                marginBottom: 40,
-              }}>
-                A&D Group kiến tạo hệ sinh thái dịch vụ chuyên nghiệp — từ pháp lý, kế toán đến công nghệ — giúp doanh nghiệp Việt Nam vận hành hiệu quả và phát triển bền vững.
               </p>
 
-              {/* CTAs */}
-              <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 56 }}>
-                <Link href="/about" className="btn-gold">
-                  Khám phá tập đoàn →
+              <h1 className="font-display" style={{ fontSize: "clamp(48px, 5.8vw, 80px)", fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.02em", color: "var(--text-primary)", marginBottom: 28 }}>
+                Kiến tạo giá trị<br />
+                bền vững cho<br />
+                <em style={{ color: "var(--gold)", fontStyle: "italic" }}>doanh nghiệp Việt.</em>
+              </h1>
+
+              <p style={{ fontSize: 17, lineHeight: 1.7, color: "var(--text-secondary)", maxWidth: 460, marginBottom: 40 }}>
+                Hệ sinh thái tích hợp Pháp lý – Kế toán – Công nghệ, đồng hành cùng doanh nghiệp từ khởi sự đến phát triển bền vững.
+              </p>
+
+              <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 64 }}>
+                <Link href="/ecosystem" style={{
+                  display: "inline-flex", alignItems: "center", gap: 10,
+                  background: "var(--gold)", color: "#fff", fontSize: 14,
+                  fontWeight: 500, letterSpacing: "0.04em", padding: "14px 28px",
+                  textDecoration: "none", transition: "opacity 0.2s",
+                }}>
+                  Khám phá hệ sinh thái <ArrowRight size={15} />
                 </Link>
-                <Link href="/contact" className="btn-outline">
+                <Link href="/contact" style={{
+                  display: "inline-flex", alignItems: "center", gap: 10,
+                  border: "1px solid var(--border-dark, #C8C0B0)", color: "var(--text-primary)",
+                  fontSize: 14, fontWeight: 400, padding: "14px 28px",
+                  textDecoration: "none", transition: "border-color 0.2s",
+                }}>
                   Liên hệ tư vấn
                 </Link>
               </div>
 
               {/* Stats */}
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: 24,
-                paddingTop: 32,
-                borderTop: "1px solid var(--border)",
-              }}>
-                {stats.map((s) => (
-                  <div key={s.label}>
-                    <p className="font-display" style={{
-                      fontSize: 32,
-                      fontWeight: 600,
-                      color: "var(--text-primary)",
-                      marginBottom: 4,
-                    }}>
-                      {s.value}
-                    </p>
-                    <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.4 }}>
-                      {s.label}
-                    </p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--border)", paddingTop: 36 }}>
+                {[
+                  { val: 10, suf: "+", label: "Năm kinh nghiệm" },
+                  { val: 500, suf: "+", label: "Doanh nghiệp tin tưởng" },
+                  { val: 3, suf: "", label: "Công ty thành viên" },
+                ].map((s, i) => (
+                  <div key={i} style={{ paddingRight: 24 }}>
+                    <div className="font-display" style={{ fontSize: 48, fontWeight: 500, lineHeight: 1, color: "var(--text-primary)", marginBottom: 6 }}>
+                      <Count to={s.val} suffix={s.suf} />
+                    </div>
+                    <p style={{ fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-muted)" }}>{s.label}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right — image */}
-            <div style={{
-              position: "relative",
-              height: "100%",
-              minHeight: 520,
-              display: "flex",
-              alignItems: "stretch",
-              overflow: "hidden",
-            }}>
-              <div style={{
-                position: "absolute",
-                inset: 0,
-                marginTop: -120,
-                marginRight: -48,
-              }}>
-                <Image
-                  src="/images/banner1.avif"
-                  alt="TP. Hồ Chí Minh"
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "center" }}
-                  priority
-                />
-                {/* Overlay gradient */}
-                <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to right, var(--bg-primary) 0%, transparent 20%)",
-                }} />
-              </div>
+            {/* ── RIGHT — ảnh ── */}
+            <div style={{ position: "relative", height: "calc(100vh - 160px)", maxHeight: 700, minHeight: 500 }}>
+              <Image
+                src="/images/banner1.avif"
+                alt="TP. Hồ Chí Minh"
+                fill
+                style={{ objectFit: "cover", objectPosition: "center top" }}
+                priority
+                quality={90}
+              />
+              {/* Gradient trái để blend với nền */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, var(--bg-primary) 0%, transparent 18%)" }} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ──────────── MARQUEE ──────────── */}
-      <div style={{
-        background: "var(--bg-secondary)",
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-        padding: "16px 0",
-        overflow: "hidden",
-      }}>
-        <div className="marquee-track">
-          {Array(4).fill(null).map((_, i) => (
-            <span key={i} style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 0,
-              fontSize: 13,
-              fontWeight: 500,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "var(--text-secondary)",
-              paddingRight: 0,
-            }}>
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>✦</span>
-              A&D Law Firm
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>·</span>
-              A&D Accounting &amp; Tax
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>·</span>
-              A&D Tech
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>·</span>
-              LegalTech
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>·</span>
-              Pháp lý
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>·</span>
-              Kế toán &amp; Thuế
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>·</span>
-              Công nghệ
-              <span style={{ color: "var(--gold)", marginRight: 16, marginLeft: 16 }}>·</span>
-              andgroup.com.vn
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* ──────────── COMPANIES ──────────── */}
-      <section className="section" style={{ background: "var(--white)" }}>
+      {/* ══════════════════════════════
+          3 CÔNG TY THÀNH VIÊN
+      ══════════════════════════════ */}
+      <section style={{ background: "#fff", padding: "100px 0" }}>
         <div className="container">
-          {/* Header */}
-          <div style={{ marginBottom: 64, maxWidth: 600 }}>
-            <span className="label" style={{ display: "block", marginBottom: 16 }}>
-              Công ty thành viên
-            </span>
-            <h2 className="font-display display-lg" style={{ color: "var(--text-primary)", marginBottom: 16 }}>
+          <div style={{ marginBottom: 64 }}>
+            <p className="label" style={{ color: "var(--gold)", marginBottom: 16 }}>Công ty thành viên</p>
+            <h2 className="font-display" style={{ fontSize: "clamp(36px, 4vw, 56px)", fontWeight: 500, lineHeight: 1.1, color: "var(--text-primary)", marginBottom: 16 }}>
               Ba trụ cột của tập đoàn
             </h2>
-            <p style={{ fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7 }}>
-              Mỗi công ty thành viên là chuyên gia đầu ngành trong lĩnh vực của mình, cùng tạo thành hệ sinh thái dịch vụ toàn diện cho doanh nghiệp.
+            <p style={{ color: "var(--text-secondary)", maxWidth: 520, lineHeight: 1.7 }}>
+              Mỗi công ty thành viên là chuyên gia đầu ngành, cùng tạo nên giải pháp dịch vụ toàn diện.
             </p>
           </div>
 
-          {/* Cards */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 28,
-          }}>
-            {companies.map((c) => (
-              <a
-                key={c.name}
-                href={c.url}
-                target={c.url.startsWith("http") ? "_blank" : "_self"}
-                rel={c.url.startsWith("http") ? "noopener noreferrer" : ""}
-                className="card-light"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: 36,
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+            {[
+              {
+                tag: "Pháp lý", tagColor: "#2C4A7C",
+                logo: "/images/project/andlaw-logo.png", logoH: 36,
+                name: "A&D Law Firm",
+                tagline: "Tư vấn pháp lý doanh nghiệp",
+                services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "M&A & Pháp lý đầu tư"],
+                url: "https://andlaw.vn",
+              },
+              {
+                tag: "Kế toán & Thuế", tagColor: "#1E5C3A",
+                logo: "/images/project/andacc-logo.png", logoH: 36,
+                name: "A&D Accounting & Tax",
+                tagline: "Kế toán, thuế & tài chính doanh nghiệp",
+                services: ["Dịch vụ kế toán trọn gói", "Tư vấn & quyết toán thuế", "Kiểm toán nội bộ", "Báo cáo tài chính"],
+                url: "https://andacc.vn",
+              },
+              {
+                tag: "Công nghệ", tagColor: "#5B2D8E",
+                logo: null, logoH: 36,
+                name: "A&D Tech",
+                tagline: "LegalTech & chuyển đổi số pháp lý",
+                services: ["A&D OS — ERP tích hợp", "QuyĐịnh.vn — AI pháp lý", "iAgree.vn — Ký số & escrow", "Phần mềm quản trị doanh nghiệp"],
+                url: null,
+              },
+            ].map((c, i) => (
+              <div key={i} style={{
+                border: "1px solid var(--border)",
+                padding: "36px 32px",
+                display: "flex", flexDirection: "column",
+                transition: "box-shadow 0.25s, transform 0.25s",
+              }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 40px rgba(0,0,0,0.08)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
               >
                 {/* Tag */}
-                <span style={{
-                  display: "inline-block",
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: c.tagColor,
-                  background: c.tagColor + "15",
-                  padding: "4px 10px",
-                  marginBottom: 24,
-                  alignSelf: "flex-start",
-                }}>
-                  {c.tag}
-                </span>
+                <div style={{ marginBottom: 28 }}>
+                  <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: c.tagColor, fontWeight: 600, background: c.tagColor + "15", padding: "4px 10px", borderRadius: 2 }}>
+                    {c.tag}
+                  </span>
+                </div>
 
-                {/* Logo */}
-                <div style={{ marginBottom: 20, height: 48, display: "flex", alignItems: "center" }}>
-                  {c.logoType === "image" && c.logo ? (
-                    <Image
-                      src={c.logo}
-                      alt={c.name}
-                      width={140}
-                      height={44}
-                      style={{ objectFit: "contain", objectPosition: "left center", maxHeight: 44 }}
-                    />
+                {/* Logo or name */}
+                <div style={{ height: 48, display: "flex", alignItems: "center", marginBottom: 20 }}>
+                  {c.logo ? (
+                    <Image src={c.logo} alt={c.name} width={120} height={c.logoH} style={{ height: c.logoH, width: "auto", objectFit: "contain", objectPosition: "left" }} />
                   ) : (
-                    <span className="font-display" style={{
-                      fontSize: 24,
-                      fontWeight: 600,
-                      color: "var(--text-primary)",
-                      letterSpacing: "-0.02em",
-                    }}>
-                      A&D Tech
-                    </span>
+                    <span className="font-display" style={{ fontSize: 28, fontWeight: 500, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>A&D Tech</span>
                   )}
                 </div>
 
-                {/* Name & tagline */}
-                <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>
-                  {c.name}
-                </h3>
-                <p style={{ fontSize: 14, color: "var(--text-secondary)", marginBottom: 24, lineHeight: 1.6 }}>
-                  {c.tagline}
-                </p>
+                <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 28, lineHeight: 1.6 }}>{c.tagline}</p>
 
-                {/* Divider */}
-                <div className="divider" style={{ marginBottom: 20 }} />
-
-                {/* Services */}
-                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-                  {c.services.map((s) => (
-                    <li key={s} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "var(--text-secondary)" }}>
-                      <span style={{ color: "var(--gold)", marginTop: 2, flexShrink: 0 }}>—</span>
+                <ul style={{ listStyle: "none", marginBottom: 36, flex: 1 }}>
+                  {c.services.map(s => (
+                    <li key={s} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "var(--text-secondary)", padding: "7px 0", borderBottom: "1px solid #F0EBE3" }}>
+                      <span style={{ width: 16, height: 1, background: "var(--gold)", flexShrink: 0 }} />
                       {s}
                     </li>
                   ))}
                 </ul>
 
-                {/* CTA */}
-                <div style={{
-                  marginTop: 28,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "var(--gold)",
-                  letterSpacing: "0.05em",
-                }}>
-                  Xem chi tiết →
-                </div>
-              </a>
+                {c.url ? (
+                  <a href={c.url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--gold)", fontWeight: 500, textDecoration: "none", letterSpacing: "0.03em" }}>
+                    Truy cập website <ArrowUpRight size={13} />
+                  </a>
+                ) : (
+                  <Link href="/ecosystem" style={{ fontSize: 13, color: "var(--gold)", fontWeight: 500, textDecoration: "none" }}>
+                    Xem sản phẩm →
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ──────────── ECOSYSTEM (DARK) ──────────── */}
-      <section className="section" style={{ background: "var(--bg-dark)" }}>
+      {/* ══════════════════════════════
+          A&D TECH PRODUCTS — dark section
+      ══════════════════════════════ */}
+      <section style={{ background: "var(--bg-dark)", padding: "100px 0" }}>
         <div className="container">
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.5fr",
-            gap: 80,
-            alignItems: "center",
-          }}>
-            {/* Left text */}
-            <div>
-              <span className="label-dark" style={{ display: "block", marginBottom: 16 }}>
-                Hệ sinh thái công nghệ
-              </span>
-              <h2 className="font-display" style={{
-                fontSize: "clamp(36px, 3.5vw, 52px)",
-                fontWeight: 500,
-                lineHeight: 1.15,
-                color: "var(--white)",
-                marginBottom: 24,
-              }}>
-                A&D Tech kiến tạo<br />
-                <em style={{ color: "var(--gold-light)", fontStyle: "italic" }}>nền tảng số</em>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+
+            {/* Left */}
+            <div style={{ position: "sticky", top: 100 }}>
+              <p className="label" style={{ color: "var(--gold-light, #D4A832)", marginBottom: 16 }}>Hệ sinh thái công nghệ</p>
+              <h2 className="font-display" style={{ fontSize: "clamp(36px, 4vw, 54px)", fontWeight: 500, lineHeight: 1.1, color: "#F7F3ED", marginBottom: 24 }}>
+                3 sản phẩm số<br />
+                <em style={{ color: "var(--gold-light, #D4A832)", fontStyle: "italic" }}>của A&D Tech</em>
               </h2>
-              <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,0.6)", marginBottom: 36 }}>
-                Ba sản phẩm công nghệ phục vụ hàng ngàn doanh nghiệp Việt Nam — từ quản trị nội bộ, tra cứu pháp luật đến ký kết hợp đồng điện tử.
+              <p style={{ color: "rgba(247,243,237,0.55)", lineHeight: 1.75, fontSize: 15, marginBottom: 36, maxWidth: 380 }}>
+                Từ quản trị nội bộ, tra cứu pháp luật đến ký kết hợp đồng điện tử — A&D Tech số hóa toàn diện hoạt động pháp lý doanh nghiệp.
               </p>
-              <Link href="/ecosystem" className="btn-outline-light">
-                Khám phá hệ sinh thái →
+              <Link href="/ecosystem" style={{
+                display: "inline-flex", alignItems: "center", gap: 10,
+                border: "1px solid rgba(201,168,76,0.5)", color: "#D4A832",
+                fontSize: 13, fontWeight: 500, padding: "12px 24px",
+                textDecoration: "none", letterSpacing: "0.05em",
+              }}>
+                Khám phá hệ sinh thái <ArrowRight size={14} />
               </Link>
             </div>
 
-            {/* Right cards */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {products.map((p) => (
-                <a
-                  key={p.name}
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card-dark"
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: 20,
-                    padding: "24px 28px",
-                    textDecoration: "none",
-                  }}
+            {/* Right — product list */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {[
+                { tag: "ERP", tagColor: "#6B9FD4", name: "A&D OS", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
+                { tag: "Legal AI", tagColor: "#9B8FD4", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
+                { tag: "Platform", tagColor: "#6BB5A0", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
+              ].map((p, i) => (
+                <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
+                  style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.3)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)"; }}
                 >
-                  <div style={{
-                    width: 48,
-                    height: 48,
-                    background: "rgba(212,168,50,0.1)",
-                    border: "1px solid rgba(212,168,50,0.2)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}>
-                    <span style={{
-                      fontSize: 10,
-                      fontWeight: 700,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "var(--gold-light)",
-                    }}>
-                      {p.tag}
-                    </span>
-                  </div>
+                  <span style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: p.tagColor, fontWeight: 600, background: p.tagColor + "25", padding: "4px 8px", borderRadius: 2, flexShrink: 0, minWidth: 64, textAlign: "center" }}>
+                    {p.tag}
+                  </span>
                   <div style={{ flex: 1 }}>
-                    <h3 style={{ fontSize: 17, fontWeight: 600, color: "var(--white)", marginBottom: 6 }}>
-                      {p.name}
-                    </h3>
-                    <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
-                      {p.desc}
-                    </p>
+                    <div style={{ fontSize: 18, fontWeight: 500, color: "#F7F3ED", marginBottom: 4, fontFamily: "var(--font-display, Georgia, serif)" }}>{p.name}</div>
+                    <div style={{ fontSize: 13, color: "rgba(247,243,237,0.5)", lineHeight: 1.5 }}>{p.desc}</div>
                   </div>
-                  <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 18, flexShrink: 0, marginTop: 2 }}>→</span>
+                  <ArrowUpRight size={16} style={{ color: "rgba(247,243,237,0.25)", flexShrink: 0 }} />
                 </a>
               ))}
             </div>
@@ -449,80 +249,44 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ──────────── MISSION ──────────── */}
-      <section className="section" style={{ background: "var(--bg-secondary)" }}>
+      {/* ══════════════════════════════
+          SỨ MỆNH & GIÁ TRỊ
+      ══════════════════════════════ */}
+      <section style={{ background: "var(--bg-secondary)", padding: "100px 0" }}>
         <div className="container">
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 80,
-            alignItems: "start",
-          }}>
-            {/* Left: Quote */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+
+            {/* Left — quote + chairman */}
             <div>
-              <span className="label" style={{ display: "block", marginBottom: 20 }}>
-                Sứ mệnh & Tầm nhìn
-              </span>
-              <blockquote className="font-display" style={{
-                fontSize: "clamp(26px, 2.5vw, 38px)",
-                fontWeight: 400,
-                fontStyle: "italic",
-                lineHeight: 1.4,
-                color: "var(--text-primary)",
-                marginBottom: 32,
-                borderLeft: "3px solid var(--gold)",
-                paddingLeft: 28,
-              }}>
-                &ldquo;Chúng tôi không chỉ cung cấp dịch vụ — chúng tôi là người bạn đồng hành tin cậy trong hành trình phát triển của doanh nghiệp Việt.&rdquo;
+              <p className="label" style={{ color: "var(--gold)", marginBottom: 24 }}>Sứ mệnh & Tầm nhìn</p>
+              <blockquote className="font-display" style={{ fontSize: "clamp(22px, 2.5vw, 30px)", fontStyle: "italic", fontWeight: 400, lineHeight: 1.55, color: "var(--text-primary)", marginBottom: 40, borderLeft: "3px solid var(--gold)", paddingLeft: 28 }}>
+                "Chúng tôi không chỉ cung cấp dịch vụ — chúng tôi là người bạn đồng hành tin cậy trong hành trình phát triển của doanh nghiệp Việt."
               </blockquote>
-              {/* Chairman */}
-              <div style={{ display: "flex", alignItems: "center", gap: 16, paddingLeft: 28 }}>
-                <div style={{
-                  width: 52,
-                  height: 52,
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  flexShrink: 0,
-                  border: "2px solid var(--border)",
-                }}>
-                  <Image
-                    src="/images/leadership/daniel-nguyen.jpg"
-                    alt="Daniel Nguyen"
-                    width={52}
-                    height={52}
-                    style={{ objectFit: "cover", width: "100%", height: "100%" }}
-                  />
+
+              {/* Chairman — đầy đủ hơn */}
+              <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                <div style={{ width: 72, height: 72, borderRadius: "50%", overflow: "hidden", position: "relative", flexShrink: 0, border: "2px solid var(--gold)" }}>
+                  <Image src="/images/leadership/daniel-nguyen.jpg" alt="Daniel Nguyen" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
                 </div>
                 <div>
-                  <p style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)" }}>Daniel Nguyen</p>
-                  <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Chairman, A&D Group</p>
+                  <div style={{ fontWeight: 600, color: "var(--text-primary)", fontSize: 15, marginBottom: 2 }}>Daniel Nguyen</div>
+                  <div style={{ fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 500 }}>Chairman, A&D Group</div>
                 </div>
               </div>
             </div>
 
-            {/* Right: Values */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-              {values.map((v) => (
-                <div key={v.n} style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
-                  <span className="font-display" style={{
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: "var(--gold)",
-                    letterSpacing: "0.1em",
-                    flexShrink: 0,
-                    marginTop: 2,
-                    minWidth: 24,
-                  }}>
-                    {v.n}
-                  </span>
-                  <div>
-                    <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>
-                      {v.title}
-                    </h4>
-                    <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7 }}>
-                      {v.desc}
-                    </p>
-                  </div>
+            {/* Right — values */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+              {[
+                { n: "01", t: "Chính trực", d: "Trung thực và minh bạch trong mọi quan hệ tư vấn." },
+                { n: "02", t: "Chuyên môn sâu", d: "Đội ngũ được đào tạo bài bản, liên tục cập nhật kiến thức." },
+                { n: "03", t: "Lấy khách hàng làm trung tâm", d: "Mỗi giải pháp được thiết kế riêng, không áp dụng đồng loạt." },
+                { n: "04", t: "Đổi mới liên tục", d: "Ứng dụng công nghệ để nâng cao chất lượng dịch vụ mỗi ngày." },
+              ].map(v => (
+                <div key={v.n} style={{ padding: "24px", background: "#fff", border: "1px solid var(--border)" }}>
+                  <div className="font-display" style={{ fontSize: 32, fontWeight: 500, color: "var(--gold)", opacity: 0.3, lineHeight: 1, marginBottom: 12 }}>{v.n}</div>
+                  <div style={{ fontWeight: 600, color: "var(--text-primary)", fontSize: 14, marginBottom: 8 }}>{v.t}</div>
+                  <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{v.d}</div>
                 </div>
               ))}
             </div>
@@ -530,71 +294,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ──────────── LEADERSHIP ──────────── */}
-      <section className="section" style={{ background: "var(--white)" }}>
+      {/* ══════════════════════════════
+          BAN LÃNH ĐẠO
+      ══════════════════════════════ */}
+      <section style={{ background: "#fff", padding: "100px 0" }}>
         <div className="container">
           <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <span className="label" style={{ display: "block", marginBottom: 16 }}>
-              Ban lãnh đạo
-            </span>
-            <h2 className="font-display display-lg" style={{ color: "var(--text-primary)" }}>
+            <p className="label" style={{ color: "var(--gold)", marginBottom: 12 }}>Ban lãnh đạo</p>
+            <h2 className="font-display" style={{ fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 500, color: "var(--text-primary)" }}>
               Người dẫn dắt A&D Group
             </h2>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <div className="card-light" style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 40,
-              padding: "40px 48px",
-              maxWidth: 680,
-              width: "100%",
-            }}>
+          {/* Chairman — full card */}
+          <div style={{ maxWidth: 760, margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", border: "1px solid var(--border)", overflow: "hidden" }}>
               {/* Photo */}
-              <div style={{
-                width: 120,
-                height: 120,
-                borderRadius: "50%",
-                overflow: "hidden",
-                flexShrink: 0,
-                border: "3px solid var(--border)",
-              }}>
+              <div style={{ position: "relative", aspectRatio: "3/4" }}>
                 <Image
                   src="/images/leadership/daniel-nguyen.jpg"
                   alt="Daniel Nguyen"
-                  width={120}
-                  height={120}
-                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center top" }}
                 />
               </div>
-
               {/* Info */}
-              <div>
-                <p style={{
-                  fontSize: 12,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  color: "var(--gold)",
-                  fontWeight: 600,
-                  marginBottom: 8,
-                }}>
-                  Chairman
+              <div style={{ padding: "40px 40px", display: "flex", flexDirection: "column", justifyContent: "center", background: "#FAFAF8" }}>
+                <p className="label" style={{ color: "var(--gold)", marginBottom: 16 }}>Chairman</p>
+                <h3 className="font-display" style={{ fontSize: 34, fontWeight: 500, color: "var(--text-primary)", marginBottom: 8 }}>Daniel Nguyen</h3>
+                <p style={{ fontSize: 13, color: "var(--gold)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 24 }}>Chủ tịch Hội đồng Quản trị</p>
+                <div style={{ width: 40, height: 1, background: "var(--gold)", marginBottom: 24 }} />
+                <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75, marginBottom: 32 }}>
+                  Nhà sáng lập và lãnh đạo A&D Group với hơn 10 năm kinh nghiệm trong lĩnh vực pháp lý doanh nghiệp, M&A và phát triển hệ sinh thái LegalTech tại Việt Nam.
                 </p>
-                <h3 className="font-display" style={{ fontSize: 28, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>
-                  Daniel Nguyen
-                </h3>
-                <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 16 }}>
-                  Chủ tịch Hội đồng Quản trị
-                </p>
-                <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 400 }}>
-                  Nhà sáng lập và lãnh đạo tập đoàn với hơn 10 năm kinh nghiệm xây dựng các dịch vụ pháp lý, kế toán và công nghệ tại Việt Nam.
-                </p>
-                <Link
-                  href="/leadership"
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "var(--gold)", marginTop: 16, textDecoration: "none" }}
-                >
-                  Xem hồ sơ đầy đủ →
+                <Link href="/leadership" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "var(--gold)", textDecoration: "none", fontWeight: 500, letterSpacing: "0.04em" }}>
+                  Xem hồ sơ đầy đủ <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
@@ -602,54 +336,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ──────────── CTA FINAL ──────────── */}
-      <section style={{ position: "relative", minHeight: 400, display: "flex", alignItems: "center", overflow: "hidden" }}>
-        {/* Background image */}
-        <div style={{ position: "absolute", inset: 0 }}>
-          <Image
-            src="/images/banner2.avif"
-            alt="TP HCM night"
-            fill
-            style={{ objectFit: "cover" }}
-          />
-          <div style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(135deg, rgba(15,15,15,0.92) 0%, rgba(15,15,15,0.75) 100%)",
-          }} />
-        </div>
-
-        <div className="container" style={{ position: "relative", textAlign: "center", padding: "80px 48px" }}>
-          <span className="label-dark" style={{ display: "block", marginBottom: 20 }}>
-            Bắt đầu hợp tác
-          </span>
-          <h2 className="font-display" style={{
-            fontSize: "clamp(32px, 4vw, 56px)",
-            fontWeight: 500,
-            color: "var(--white)",
-            marginBottom: 20,
-            maxWidth: 640,
-            margin: "0 auto 20px",
-          }}>
-            Sẵn sàng đồng hành cùng doanh nghiệp của bạn
+      {/* ══════════════════════════════
+          CTA FINAL
+      ══════════════════════════════ */}
+      <section style={{ position: "relative", padding: "120px 0", overflow: "hidden" }}>
+        <Image src="/images/banner2.avif" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} quality={85} />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(10,10,10,0.78)" }} />
+        <div className="container" style={{ position: "relative", textAlign: "center" }}>
+          <p className="label" style={{ color: "var(--gold)", marginBottom: 20 }}>Bắt đầu hợp tác</p>
+          <h2 className="font-display" style={{ fontSize: "clamp(36px, 5vw, 68px)", fontWeight: 500, color: "#F7F3ED", lineHeight: 1.1, marginBottom: 20, maxWidth: 700, margin: "0 auto 20px" }}>
+            Đồng hành cùng<br />
+            <em style={{ color: "var(--gold)", fontStyle: "italic" }}>A&D Group</em>
           </h2>
-          <p style={{
-            fontSize: 16,
-            color: "rgba(255,255,255,0.6)",
-            maxWidth: 480,
-            margin: "0 auto 40px",
-            lineHeight: 1.7,
-          }}>
-            Từ pháp lý, kế toán đến công nghệ — A&D Group cung cấp giải pháp tích hợp giúp doanh nghiệp phát triển bền vững.
+          <p style={{ color: "rgba(247,243,237,0.55)", fontSize: 16, maxWidth: 480, margin: "0 auto 48px", lineHeight: 1.7 }}>
+            Pháp lý, kế toán, công nghệ — giải pháp toàn diện cho doanh nghiệp của bạn.
           </p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/contact" className="btn-gold">
-              Liên hệ tư vấn ngay →
-            </Link>
-            <Link href="/about" className="btn-outline-light">
-              Tìm hiểu thêm
-            </Link>
-          </div>
+          <Link href="/contact" style={{
+            display: "inline-flex", alignItems: "center", gap: 12,
+            background: "var(--gold)", color: "#fff",
+            fontSize: 14, fontWeight: 500, letterSpacing: "0.05em",
+            padding: "16px 36px", textDecoration: "none",
+          }}>
+            Liên hệ tư vấn ngay <ArrowRight size={15} />
+          </Link>
         </div>
       </section>
     </>
