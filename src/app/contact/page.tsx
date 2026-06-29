@@ -99,9 +99,9 @@ export default function ContactPage() {
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                   {[
-                    { name: "A&D Law Firm", email: "", url: "https://andlaw.vn" },
-                    { name: "A&D Accounting & Tax", email: "accounting@andacc.vn", url: "https://andacc.vn" },
-                    { name: "A&D Tech", email: "tech@andgroup.com.vn", url: "https://andos.vn" },
+                    { name: "A&D Law Firm", email: "support@andlaw.vn", url: "https://andlaw.vn" },
+                    { name: "A&D Accounting & Tax", email: "support@andacc.vn", url: "https://andacc.vn" },
+                    { name: "A&D Tech", email: "support@andgroup.com.vn", url: "https://andos.vn" },
                   ].map((c) => (
                     <div key={c.name} style={{
                       padding: "14px 18px",
