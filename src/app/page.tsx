@@ -57,22 +57,12 @@ export default function Home() {
           HERO — split layout
       ══════════════════════════════ */}
       <section className="hero-section" style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 72, overflow: "hidden" }}>
-        {/* BG ảnh tập thể bên trái — mờ */}
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <Image
-            src="/images/team-unity.jpg"
-            alt=""
-            fill
-            style={{ objectFit: "cover", objectPosition: "center 20%" }}
-            priority
-            quality={85}
-          />
-          {/* Overlay desktop: trái đậm, phải mờ; mobile: phủ toàn bộ */}
-          <div className="hero-overlay" style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(250,250,248,0.97) 0%, rgba(250,250,248,0.97) 52%, rgba(250,250,248,0.05) 100%)" }} />
-          <style>{`.hero-overlay { background: linear-gradient(to right, rgba(250,250,248,0.97) 0%, rgba(250,250,248,0.97) 52%, rgba(250,250,248,0.05) 100%) !important; } @media (max-width: 768px) { .hero-overlay { background: rgba(250,250,248,0.93) !important; } }`}</style>
+          <Image src="/images/team-unity.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 20%" }} priority quality={85} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(250,250,248,0.88)" }} />
         </div>
         <div className="container" style={{ width: "100%", paddingTop: 40, paddingBottom: 40, position: "relative", zIndex: 1 }}>
-          <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "55% 1fr", gap: 0, alignItems: "stretch", minHeight: "calc(100vh - 160px)" }}>
+          <div className="hero-grid" style={{ display: "flex", alignItems: "center", minHeight: "calc(100vh - 160px)" }}>
 
             {/* ── LEFT ── */}
             <div>
@@ -127,19 +117,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ── RIGHT — ảnh rõ full ── */}
-            <div className="hero-img" style={{ position: "relative", minHeight: "calc(100vh - 160px)", maxHeight: 700 }}>
-              <Image
-                src="/images/team-group.jpg"
-                alt="Đội ngũ A&D Group"
-                fill
-                style={{ objectFit: "cover", objectPosition: "center 15%" }}
-                priority
-                quality={90}
-              />
-              {/* Gradient trái blend */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(250,250,248,0.85) 0%, transparent 20%)" }} />
-            </div>
+
           </div>
         </div>
       </section>
