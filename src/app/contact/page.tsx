@@ -1,3 +1,5 @@
+import { MapPin, Mail, Phone } from "lucide-react";
+
 const mobileStyles = `
   @media (max-width: 768px) {
     .contact-content-grid { grid-template-columns: 1fr !important; }
@@ -48,17 +50,17 @@ export default function ContactPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
                 {[
                   {
-                    icon: "📍",
+                    Icon: MapPin,
                     label: "Địa chỉ",
                     lines: ["Tầng 7, 520 Cách Mạng Tháng Tám", "Phường Nhiêu Lộc, TP. Hồ Chí Minh"],
                   },
                   {
-                    icon: "📧",
+                    Icon: Mail,
                     label: "Email",
                     lines: ["support@andgroup.com.vn", ""],
                   },
                   {
-                    icon: "📞",
+                    Icon: Phone,
                     label: "Điện thoại",
                     lines: ["0896 868 989", "Thứ 2 – Thứ 6, 8:00 – 17:30"],
                   },
@@ -71,11 +73,10 @@ export default function ContactPage() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: 18,
+                      color: "var(--gold)",
                       flexShrink: 0,
                     }}>
-                      {item.icon}
-                    </div>
+                      <item.Icon size={20} strokeWidth={1.5} /></div>
                     <div>
                       <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 6 }}>
                         {item.label}
@@ -263,7 +264,7 @@ export default function ContactPage() {
         justifyContent: "center",
         borderTop: "1px solid var(--border)",
       }}>
-        <p style={{ fontSize: 14, color: "var(--text-muted)" }}>📍 Phường Nhiêu Lộc, TP. Hồ Chí Minh</p>
+        <p style={{ fontSize: 14, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 6 }}><MapPin size={14} strokeWidth={1.5} /> Phường Nhiêu Lộc, TP. Hồ Chí Minh</p>
       </div>
     </>
   );

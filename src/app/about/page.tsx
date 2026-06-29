@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Scale, BarChart2, Cpu } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Về A&D Group",
@@ -32,19 +32,19 @@ const values = [
 
 const pillars = [
   {
-    icon: "⚖️",
+    Icon: Scale,
     title: "Pháp lý",
     company: "A&D Law Firm",
     desc: "Tư vấn pháp lý toàn diện cho doanh nghiệp và cá nhân: thành lập, hợp đồng, M&A, tranh chấp và pháp lý lao động.",
   },
   {
-    icon: "📊",
+    Icon: BarChart2,
     title: "Kế toán & Thuế",
     company: "A&D Accounting & Tax",
     desc: "Dịch vụ kế toán, kiểm toán và tư vấn thuế chuyên nghiệp giúp tối ưu tài chính và đảm bảo tuân thủ pháp luật.",
   },
   {
-    icon: "💻",
+    Icon: Cpu,
     title: "Công nghệ",
     company: "A&D Tech",
     desc: "Phát triển sản phẩm LegalTech phục vụ doanh nghiệp, cá nhân và freelancer: ERP, AI pháp lý, ký số và escrow.",
@@ -134,7 +134,7 @@ export default function AboutPage() {
           <div className="about-pillars-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {pillars.map((p) => (
               <div key={p.title} style={{ background: "#fff", padding: "40px 32px", border: "1px solid var(--border)" }}>
-                <div style={{ fontSize: 32, marginBottom: 16 }}>{p.icon}</div>
+                <div style={{ width: 40, height: 40, marginBottom: 16, color: "var(--gold)" }}><p.Icon size={36} strokeWidth={1.5} /></div>
                 <p style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 600, marginBottom: 6 }}>{p.company}</p>
                 <h3 className="font-display" style={{ fontSize: 24, fontWeight: 500, color: "var(--text-primary)", marginBottom: 16 }}>{p.title}</h3>
                 <p style={{ fontSize: 14, lineHeight: 1.75, color: "var(--text-secondary)" }}>{p.desc}</p>
