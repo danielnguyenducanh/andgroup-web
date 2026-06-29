@@ -116,14 +116,14 @@ export default function Footer() {
               <div>
                 <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Địa chỉ</p>
                 <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
-                  Tầng 10, Tòa nhà A&D<br />
-                  TP. Hồ Chí Minh, Việt Nam
+                  Tầng 7, 520 Cách Mạng Tháng Tám<br />
+                  Phường Nhiêu Lộc, TP. Hồ Chí Minh
                 </p>
               </div>
               <div>
                 <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Email</p>
-                <a href="mailto:info@andgroup.com.vn" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
-                  info@andgroup.com.vn
+                <a href="mailto:support@andgroup.com.vn" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
+                  support@andgroup.com.vn
                 </a>
               </div>
               <div>

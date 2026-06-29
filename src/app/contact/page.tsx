@@ -50,17 +50,17 @@ export default function ContactPage() {
                   {
                     icon: "📍",
                     label: "Địa chỉ",
-                    lines: ["Tầng 10, Tòa nhà A&D", "TP. Hồ Chí Minh, Việt Nam"],
+                    lines: ["Tầng 7, 520 Cách Mạng Tháng Tám", "Phường Nhiêu Lộc, TP. Hồ Chí Minh"],
                   },
                   {
                     icon: "📧",
                     label: "Email",
-                    lines: ["info@andgroup.com.vn", "legal@andlaw.vn"],
+                    lines: ["support@andgroup.com.vn", ""],
                   },
                   {
                     icon: "📞",
                     label: "Điện thoại",
-                    lines: ["+84 28 xxxx xxxx", "Thứ 2 – Thứ 6, 8:00 – 17:30"],
+                    lines: ["0896 868 989", "Thứ 2 – Thứ 6, 8:00 – 17:30"],
                   },
                 ].map((item) => (
                   <div key={item.label} style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
@@ -98,7 +98,7 @@ export default function ContactPage() {
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                   {[
-                    { name: "A&D Law Firm", email: "legal@andlaw.vn", url: "https://andlaw.vn" },
+                    { name: "A&D Law Firm", email: "", url: "https://andlaw.vn" },
                     { name: "A&D Accounting & Tax", email: "accounting@andacc.vn", url: "https://andacc.vn" },
                     { name: "A&D Tech", email: "tech@andgroup.com.vn", url: "https://andos.vn" },
                   ].map((c) => (
@@ -263,7 +263,7 @@ export default function ContactPage() {
         justifyContent: "center",
         borderTop: "1px solid var(--border)",
       }}>
-        <p style={{ fontSize: 14, color: "var(--text-muted)" }}>📍 TP. Hồ Chí Minh, Việt Nam</p>
+        <p style={{ fontSize: 14, color: "var(--text-muted)" }}>📍 Phường Nhiêu Lộc, TP. Hồ Chí Minh</p>
       </div>
     </>
   );

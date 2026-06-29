@@ -37,7 +37,7 @@ export default function Navbar() {
   const contactHref = isEN ? "/en/contact" : "/contact";
   const langTarget = isEN ? "/" : "/en";
   const logoHref = isEN ? "/en" : "/";
-  const logoSrc = "/images/adgroup-black-logo.png";
+  const logoSrc = "/images/adgroup-navbar-nobg.png";
 
   return (
     <header style={{

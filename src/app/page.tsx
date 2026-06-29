@@ -71,7 +71,7 @@ export default function Home() {
               </h1>
 
               <p style={{ fontSize: 17, lineHeight: 1.7, color: "var(--text-secondary)", maxWidth: 460, marginBottom: 40 }}>
-                Hệ sinh thái tích hợp Pháp lý – Kế toán – Công nghệ, đồng hành cùng doanh nghiệp từ khởi sự đến phát triển bền vững.
+                Hệ sinh thái tích hợp Pháp lý – Kế toán – Công nghệ, phục vụ doanh nghiệp, cá nhân và freelancer tại Việt Nam.
               </p>
 
               <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 64 }}>
@@ -97,7 +97,7 @@ export default function Home() {
               <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--border)", paddingTop: 36 }}>
                 {[
                   { val: 10, suf: "+", label: "Năm kinh nghiệm" },
-                  { val: 500, suf: "+", label: "Doanh nghiệp tin tưởng" },
+                  { val: 10, suf: "K+", label: "Khách hàng tin tưởng" },
                   { val: 3, suf: "", label: "Công ty thành viên" },
                 ].map((s, i) => (
                   <div key={i} style={{ paddingRight: 24 }}>
