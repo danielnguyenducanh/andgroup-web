@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap");
+/* Fonts loaded via next/font/google in layout.tsx — no external import needed */
 @import "tailwindcss";
 
 :root {
@@ -24,14 +24,14 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 .font-display {
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-lora), Georgia, serif;
 }
 
 /* Scrollbar */
@@ -63,7 +63,7 @@ body {
   text-transform: uppercase;
   color: var(--gold);
   font-weight: 600;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .label-dark {
@@ -72,11 +72,11 @@ body {
   text-transform: uppercase;
   color: var(--gold-light);
   font-weight: 600;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .display-xl {
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-lora), Georgia, serif;
   font-size: clamp(48px, 6vw, 80px);
   font-weight: 500;
   line-height: 1.1;
@@ -84,14 +84,14 @@ body {
 }
 
 .display-lg {
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-lora), Georgia, serif;
   font-size: clamp(36px, 4vw, 56px);
   font-weight: 500;
   line-height: 1.15;
 }
 
 .display-md {
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-lora), Georgia, serif;
   font-size: clamp(28px, 3vw, 42px);
   font-weight: 500;
   line-height: 1.2;

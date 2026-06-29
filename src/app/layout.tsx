@@ -1,7 +1,23 @@
 import type { Metadata } from "next";
+import { Lora, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const lora = Lora({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "A&D Group — Pháp lý · Kế toán · Công nghệ",
@@ -42,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi">
+    <html lang="vi" className={`${lora.variable} ${inter.variable}`}>
       <body>
         <Navbar />
         <main>{children}</main>
