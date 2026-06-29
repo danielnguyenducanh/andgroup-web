@@ -26,7 +26,7 @@ export default function Navbar() {
 
   const onDark = pathname !== "/" || scrolled;
   // Hero nền sáng → dùng logo dark; trang khác hoặc scroll → nền trắng
-  const logoSrc = "/images/project/adgroup-logo.jpg"; // logo A&D Group chuẩn — tam giác đen
+  const logoSrc = "/images/project/adgroup-logo-tight.png"; // logo A&D Group chuẩn — tam giác đen
 
   return (
     <header style={{
@@ -46,7 +46,7 @@ export default function Navbar() {
             alt="A&D Group"
             width={130}
             height={48}
-            style={{ height: 40, width: "auto", objectFit: "contain" }}
+            style={{ height: 44, width: "auto", objectFit: "contain" }}
             priority
           />
         </Link>
