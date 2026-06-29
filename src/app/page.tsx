@@ -121,7 +121,7 @@ export default function Home() {
             {[
               {
                 tag: "Pháp lý", tagColor: "#2C4A7C",
-                logo: "/images/project/andlaw-logo-v2.jpg", logoH: 56,
+                logo: "/images/project/andlaw-logo-v2-tight.png", logoH: 44,
                 name: "A&D Law Firm",
                 tagline: "Tư vấn pháp lý doanh nghiệp",
                 services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "M&A & Pháp lý đầu tư"],
@@ -129,7 +129,7 @@ export default function Home() {
               },
               {
                 tag: "Kế toán & Thuế", tagColor: "#1E5C3A",
-                logo: "/images/project/andacc-logo-v2.jpg", logoH: 56,
+                logo: "/images/project/andacc-logo-v2-tight.png", logoH: 44,
                 name: "A&D Accounting & Tax",
                 tagline: "Kế toán, thuế & tài chính doanh nghiệp",
                 services: ["Dịch vụ kế toán trọn gói", "Tư vấn & quyết toán thuế", "Kiểm toán nội bộ", "Báo cáo tài chính"],
@@ -137,7 +137,7 @@ export default function Home() {
               },
               {
                 tag: "Công nghệ", tagColor: "#5B2D8E",
-                logo: "/images/project/andtech-logo.jpg", logoH: 56,
+                logo: "/images/project/andtech-logo-tight.png", logoH: 44,
                 name: "A&D Tech",
                 tagline: "LegalTech & chuyển đổi số pháp lý",
                 services: ["A&D OS — ERP tích hợp", "QuyĐịnh.vn — AI pháp lý", "iAgree.vn — Ký số & escrow", "Phần mềm quản trị doanh nghiệp"],
