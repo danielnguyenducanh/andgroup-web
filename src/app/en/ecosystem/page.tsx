@@ -1,0 +1,238 @@
+import Link from "next/link";
+import Image from "next/image";
+
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .eco-companies-grid { grid-template-columns: 1fr !important; }
+    .eco-product-card { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .eco-hero { padding-top: 100px !important; padding-bottom: 56px !important; }
+    .eco-services-grid { grid-template-columns: 1fr !important; }
+    .container { padding-left: 20px !important; padding-right: 20px !important; }
+    .section { padding-top: 64px !important; padding-bottom: 64px !important; }
+  }
+`;
+
+const companies = [
+  {
+    logo: "/images/project/logo-andlaw.png",
+    logoType: "image" as const,
+    tag: "Legal",
+    tagColor: "#1A5276",
+    name: "A&D Law Firm",
+    url: "https://andlaw.vn",
+    domain: "andlaw.vn",
+    desc: "Comprehensive legal advisory — from contracts, investment and M&A to litigation for businesses in Vietnam.",
+    services: ["Regular legal consultation", "Contract drafting & review", "Litigation & dispute resolution", "Investment & M&A legal", "Intellectual property", "Employment & HR law"],
+  },
+  {
+    logo: "/images/project/logo-andacc.png",
+    logoType: "image" as const,
+    tag: "Accounting",
+    tagColor: "#1E6B3C",
+    name: "A&D Accounting & Tax",
+    url: "https://andacc.vn",
+    domain: "andacc.vn",
+    desc: "Corporate accounting, tax and finance — accurate, transparent and on time.",
+    services: ["Full-service accounting", "Tax advisory & finalization", "Internal audit", "Financial statement preparation", "Corporate financial consulting", "Management accounting"],
+  },
+];
+
+const products = [
+  {
+    tag: "ERP",
+    name: "A&D OS",
+    url: "https://andos.vn",
+    domain: "andos.vn",
+    desc: "Integrated enterprise management system — HR, accounting, contracts and workflow on one platform. Designed specifically for Vietnamese businesses.",
+    features: ["HR & attendance management", "Accounting & finance", "Contract management", "Workflow & approvals", "Reports & dashboards", "Open API for integrations"],
+  },
+  {
+    tag: "Legal AI",
+    name: "QuyĐịnh.vn",
+    url: "https://quydinh.vn",
+    domain: "quydinh.vn",
+    desc: "Search Vietnamese legal documents with AI — fast, accurate, continuously updated. Ask in natural language, receive sourced answers.",
+    features: ["AI semantic search", "1.5M+ clause database", "Search by document number", "Document validity tracking", "Legal report export", "Integration API"],
+  },
+  {
+    tag: "Platform",
+    name: "iAgree.vn",
+    url: "https://iagree.vn",
+    domain: "iagree.vn",
+    desc: "Legally valid e-contract signing — secure, transparent, permanently stored in compliance with Vietnamese law.",
+    features: ["Legal electronic signature", "eKYC verification", "Blockchain storage", "Standard contract templates", "Multi-party signing", "Full audit trail"],
+  },
+];
+
+export default function EcosystemPageEN() {
+  return (
+    <>
+      <style>{mobileStyles}</style>
+
+      {/* Hero */}
+      <section className="eco-hero" style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
+        <div className="container">
+          <div style={{ maxWidth: 680 }}>
+            <span className="label" style={{ display: "block", marginBottom: 20 }}>A&D Ecosystem</span>
+            <h1 className="font-display" style={{
+              fontSize: "clamp(40px, 5vw, 68px)",
+              fontWeight: 500,
+              color: "var(--text-primary)",
+              lineHeight: 1.1,
+              marginBottom: 24,
+            }}>
+              Three companies, three products —<br />
+              <em style={{ color: "var(--gold)", fontStyle: "italic" }}>one ecosystem</em>
+            </h1>
+            <p style={{ fontSize: 17, color: "var(--text-secondary)", lineHeight: 1.8 }}>
+              A&D Group builds a comprehensive ecosystem of services and technology — helping Vietnamese businesses manage legal, financial and operational challenges more effectively.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Companies */}
+      <section className="section" style={{ background: "var(--white)" }}>
+        <div className="container">
+          <div style={{ marginBottom: 56 }}>
+            <span className="label" style={{ display: "block", marginBottom: 16 }}>Member companies</span>
+            <h2 className="font-display display-lg" style={{ color: "var(--text-primary)" }}>
+              Professional services
+            </h2>
+          </div>
+          <div className="eco-companies-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+            {companies.map((c) => (
+              <div key={c.name} className="card-light" style={{ padding: 40 }}>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
+                  <div>
+                    <span style={{
+                      display: "inline-block",
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: c.tagColor,
+                      background: c.tagColor + "15",
+                      padding: "4px 10px",
+                      marginBottom: 16,
+                    }}>
+                      {c.tag}
+                    </span>
+                    <div style={{ height: 40 }}>
+                      {c.logoType === "image" ? (
+                        <Image src={c.logo} alt={c.name} width={130} height={40} style={{ objectFit: "contain", objectPosition: "left center", maxHeight: 40 }} />
+                      ) : (
+                        <span className="font-display" style={{ fontSize: 22, fontWeight: 600 }}>{c.name}</span>
+                      )}
+                    </div>
+                  </div>
+                  <a
+                    href={c.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: 12,
+                      color: "var(--text-muted)",
+                      textDecoration: "none",
+                      border: "1px solid var(--border)",
+                      padding: "6px 12px",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {c.domain} ↗
+                  </a>
+                </div>
+                <p style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>{c.desc}</p>
+                <div className="divider" style={{ marginBottom: 24 }} />
+                <ul className="eco-services-grid" style={{ listStyle: "none", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  {c.services.map((s) => (
+                    <li key={s} style={{ fontSize: 13, color: "var(--text-secondary)", display: "flex", alignItems: "flex-start", gap: 8 }}>
+                      <span style={{ color: "var(--gold)", flexShrink: 0 }}>✓</span> {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Products */}
+      <section className="section" style={{ background: "var(--bg-dark)" }}>
+        <div className="container">
+          <div style={{ marginBottom: 56 }}>
+            <span className="label-dark" style={{ display: "block", marginBottom: 16 }}>Tech products</span>
+            <h2 className="font-display display-lg" style={{ color: "var(--white)" }}>
+              A&D Tech Products
+            </h2>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            {products.map((p) => (
+              <div key={p.name} className="card-dark eco-product-card" style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1.5fr",
+                gap: 48,
+                padding: "40px 44px",
+              }}>
+                <div>
+                  <span style={{
+                    display: "inline-block",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "var(--gold-light)",
+                    background: "rgba(212,168,50,0.12)",
+                    padding: "4px 10px",
+                    marginBottom: 16,
+                    border: "1px solid rgba(212,168,50,0.2)",
+                  }}>
+                    {p.tag}
+                  </span>
+                  <h3 className="font-display" style={{ fontSize: 32, fontWeight: 600, color: "var(--white)", marginBottom: 12 }}>
+                    {p.name}
+                  </h3>
+                  <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 24 }}>{p.desc}</p>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline-light"
+                    style={{ display: "inline-flex", padding: "10px 20px", fontSize: 13 }}
+                  >
+                    Visit {p.domain} ↗
+                  </a>
+                </div>
+                <div>
+                  <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", fontWeight: 600, marginBottom: 16 }}>
+                    Key features
+                  </p>
+                  <ul style={{ listStyle: "none", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    {p.features.map((f) => (
+                      <li key={f} style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", display: "flex", alignItems: "flex-start", gap: 8 }}>
+                        <span style={{ color: "var(--gold-light)", flexShrink: 0, marginTop: 1 }}>→</span> {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section" style={{ background: "var(--bg-secondary)", textAlign: "center" }}>
+        <div className="container">
+          <h2 className="font-display display-md" style={{ color: "var(--text-primary)", marginBottom: 20 }}>
+            Experience the A&D ecosystem
+          </h2>
+          <p style={{ fontSize: 16, color: "var(--text-secondary)", marginBottom: 36, maxWidth: 480, margin: "0 auto 36px" }}>
+            Get in touch to discover how A&D&apos;s services and products can be integrated for your business needs.
+          </p>
+          <Link href="/en/contact" className="btn-gold">Free consultation →</Link>
+        </div>
+      </section>
+    </>
+  );
+}

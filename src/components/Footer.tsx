@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const companies = [
   { name: "A&D Law Firm", url: "https://andlaw.vn" },
@@ -14,7 +15,7 @@ const products = [
   { name: "iAgree.vn", url: "https://iagree.vn" },
 ];
 
-const navLinks = [
+const navLinksVI = [
   { href: "/about", label: "Về chúng tôi" },
   { href: "/ecosystem", label: "Hệ sinh thái" },
   { href: "/leadership", label: "Lãnh đạo" },
@@ -22,7 +23,37 @@ const navLinks = [
   { href: "/contact", label: "Liên hệ" },
 ];
 
+const navLinksEN = [
+  { href: "/en/about", label: "About" },
+  { href: "/en/ecosystem", label: "Ecosystem" },
+  { href: "/en/leadership", label: "Leadership" },
+  { href: "/en/careers", label: "Careers" },
+  { href: "/en/contact", label: "Contact" },
+];
+
 export default function Footer() {
+  const pathname = usePathname();
+  const isEN = pathname.startsWith("/en");
+  const navLinks = isEN ? navLinksEN : navLinksVI;
+
+  const t = {
+    tagline: isEN
+      ? "A specialized advisory group encompassing legal, accounting & tax and technology — serving Vietnamese businesses with sustainable growth."
+      : "Tập đoàn tư vấn chuyên sâu gồm pháp lý, kế toán & thuế và công nghệ — phục vụ doanh nghiệp Việt Nam phát triển bền vững.",
+    nav: isEN ? "Navigation" : "Điều hướng",
+    memberCompanies: isEN ? "Member companies" : "Công ty thành viên",
+    techProducts: isEN ? "Tech products" : "Sản phẩm công nghệ",
+    contact: isEN ? "Contact" : "Liên hệ",
+    address: isEN ? "Address" : "Địa chỉ",
+    addressLines: isEN
+      ? "Floor 7, 520 Cach Mang Thang Tam\nNhieu Loc Ward, Ho Chi Minh City"
+      : "Tầng 7, 520 Cách Mạng Tháng Tám\nPhường Nhiêu Lộc, TP. Hồ Chí Minh",
+    email: "Email",
+    website: "Website",
+    privacy: isEN ? "Privacy policy" : "Chính sách bảo mật",
+    terms: isEN ? "Terms of use" : "Điều khoản sử dụng",
+  };
+
   return (
     <footer style={{ background: "var(--bg-dark)", color: "rgba(255,255,255,0.75)" }}>
       {/* Main footer */}
@@ -42,14 +73,14 @@ export default function Footer() {
               style={{ objectFit: "contain", height: 40, width: "auto", marginBottom: 20 }}
             />
             <p style={{ fontSize: 14, lineHeight: 1.7, color: "rgba(255,255,255,0.55)", maxWidth: 280 }}>
-              Tập đoàn tư vấn chuyên sâu gồm pháp lý, kế toán &amp; thuế và công nghệ — phục vụ doanh nghiệp Việt Nam phát triển bền vững.
+              {t.tagline}
             </p>
           </div>
 
           {/* Col 2: Navigation */}
           <div>
             <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 20, fontWeight: 600 }}>
-              Điều hướng
+              {t.nav}
             </p>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12 }}>
               {navLinks.map((link) => (
@@ -72,7 +103,7 @@ export default function Footer() {
           {/* Col 3: Companies + Products */}
           <div>
             <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 20, fontWeight: 600 }}>
-              Công ty thành viên
+              {t.memberCompanies}
             </p>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
               {companies.map((c) => (
@@ -89,7 +120,7 @@ export default function Footer() {
               ))}
             </ul>
             <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 16, fontWeight: 600 }}>
-              Sản phẩm công nghệ
+              {t.techProducts}
             </p>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
               {products.map((p) => (
@@ -110,24 +141,23 @@ export default function Footer() {
           {/* Col 4: Contact */}
           <div>
             <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 20, fontWeight: 600 }}>
-              Liên hệ
+              {t.contact}
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Địa chỉ</p>
-                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
-                  Tầng 7, 520 Cách Mạng Tháng Tám<br />
-                  Phường Nhiêu Lộc, TP. Hồ Chí Minh
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>{t.address}</p>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                  {t.addressLines}
                 </p>
               </div>
               <div>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Email</p>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>{t.email}</p>
                 <a href="mailto:support@andgroup.com.vn" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
                   support@andgroup.com.vn
                 </a>
               </div>
               <div>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>Website</p>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4, letterSpacing: "0.05em" }}>{t.website}</p>
                 <a href="https://andgroup.com.vn" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
                   andgroup.com.vn
                 </a>
@@ -152,10 +182,10 @@ export default function Footer() {
           </p>
           <div style={{ display: "flex", gap: 24 }}>
             <Link href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>
-              Chính sách bảo mật
+              {t.privacy}
             </Link>
             <Link href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>
-              Điều khoản sử dụng
+              {t.terms}
             </Link>
           </div>
         </div>

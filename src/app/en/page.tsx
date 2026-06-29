@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
+/* ── animated counter ── */
 function Count({ to, suffix = "" }: { to: number; suffix?: string }) {
   const [n, setN] = useState(0);
   const el = useRef<HTMLSpanElement>(null);
@@ -12,13 +13,14 @@ function Count({ to, suffix = "" }: { to: number; suffix?: string }) {
       if (!e.isIntersecting) return;
       obs.disconnect();
       let v = 0;
-      const step = Math.ceil(to / 55);
-      const t = setInterval(() => { v = Math.min(v + step, to); setN(v); if (v >= to) clearInterval(t); }, 28);
+      const step = to >= 1000 ? Math.ceil(to / 60 / 1000) * 1000 : Math.ceil(to / 55);
+      const t = setInterval(() => { v = Math.min(v + step, to); setN(v); if (v >= to) clearInterval(t); }, 30);
     }, { threshold: 0.5 });
     if (el.current) obs.observe(el.current);
     return () => obs.disconnect();
   }, [to]);
-  return <span ref={el}>{n}{suffix}</span>;
+  const formatted = n >= 1000 ? n.toLocaleString("en-US") : n.toString();
+  return <span ref={el}>{formatted}{suffix}</span>;
 }
 
 const mobileStyles = `
@@ -49,23 +51,34 @@ export default function HomeEN() {
     <>
       <style>{mobileStyles}</style>
 
-      {/* HERO */}
-      <section className="hero-section" style={{ background: "var(--bg-primary)", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 72 }}>
-        <div className="container" style={{ width: "100%", paddingTop: 40, paddingBottom: 40 }}>
-          <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "55% 1fr", gap: 80, alignItems: "center", minHeight: "calc(100vh - 160px)" }}>
+      {/* ══════════════════════════════
+          HERO — background team photo (matches VI)
+      ══════════════════════════════ */}
+      <section className="hero-section" style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 72, overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image src="/images/team-unity.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 20%" }} priority quality={85} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(250,250,248,0.88)" }} />
+        </div>
+        <div className="container" style={{ width: "100%", paddingTop: 40, paddingBottom: 40, position: "relative", zIndex: 1 }}>
+          <div className="hero-grid" style={{ display: "flex", alignItems: "center", minHeight: "calc(100vh - 160px)" }}>
+
+            {/* ── LEFT ── */}
             <div>
               <p className="label" style={{ color: "var(--gold)", marginBottom: 28, display: "flex", alignItems: "center", gap: 12 }}>
                 <span style={{ width: 40, height: 1, background: "var(--gold)", display: "inline-block" }} />
                 A&D Group
               </p>
+
               <h1 className="hero-h1 font-display" style={{ fontSize: "clamp(48px, 5.8vw, 80px)", fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.02em", color: "var(--text-primary)", marginBottom: 28 }}>
                 Building sustainable<br />
                 value for<br />
                 <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Vietnamese businesses.</em>
               </h1>
+
               <p style={{ fontSize: 17, lineHeight: 1.7, color: "var(--text-secondary)", maxWidth: 460, marginBottom: 40 }}>
-                An integrated ecosystem of Legal – Accounting – Technology services, partnering with businesses from inception to sustainable growth.
+                An integrated ecosystem of Legal – Accounting – Technology services, partnering with businesses, individuals and freelancers across Vietnam.
               </p>
+
               <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 64 }}>
                 <Link href="/en/ecosystem" style={{
                   display: "inline-flex", alignItems: "center", gap: 10,
@@ -84,10 +97,12 @@ export default function HomeEN() {
                   Contact us
                 </Link>
               </div>
+
+              {/* Stats */}
               <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--border)", paddingTop: 36 }}>
                 {[
                   { val: 10, suf: "+", label: "Years of experience" },
-                  { val: 500, suf: "+", label: "Businesses served" },
+                  { val: 10000, suf: "+", label: "Businesses served" },
                   { val: 3, suf: "", label: "Member companies" },
                 ].map((s, i) => (
                   <div key={i} style={{ paddingRight: 24 }}>
@@ -99,15 +114,14 @@ export default function HomeEN() {
                 ))}
               </div>
             </div>
-            <div className="hero-img" style={{ position: "relative", height: "calc(100vh - 160px)", maxHeight: 700, minHeight: 500 }}>
-              <Image src="/images/banner1.avif" alt="Ho Chi Minh City" fill style={{ objectFit: "cover", objectPosition: "60% 30%" }} priority quality={90} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, var(--bg-primary) 0%, transparent 18%)" }} />
-            </div>
+
           </div>
         </div>
       </section>
 
-      {/* MEMBER COMPANIES */}
+      {/* ══════════════════════════════
+          3 MEMBER COMPANIES
+      ══════════════════════════════ */}
       <section className="section" style={{ background: "#fff", padding: "100px 0" }}>
         <div className="container">
           <div style={{ marginBottom: 64 }}>
@@ -119,11 +133,12 @@ export default function HomeEN() {
               Each member company is an industry expert, together creating comprehensive service solutions.
             </p>
           </div>
+
           <div className="companies-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {[
               {
                 tag: "Legal", tagColor: "#2C4A7C",
-                logo: "/images/project/logo-andlaw.png",
+                logo: "/images/project/logo-andlaw.png", logoH: 56,
                 name: "A&D Law Firm",
                 tagline: "Corporate legal advisory",
                 services: ["Regular legal consultation", "Contract drafting & review", "Litigation & dispute resolution", "M&A & investment legal"],
@@ -131,7 +146,7 @@ export default function HomeEN() {
               },
               {
                 tag: "Accounting & Tax", tagColor: "#1E5C3A",
-                logo: "/images/project/logo-andacc.png",
+                logo: "/images/project/logo-andacc.png", logoH: 56,
                 name: "A&D Accounting & Tax",
                 tagline: "Accounting, tax & corporate finance",
                 services: ["Full-service accounting", "Tax advisory & finalization", "Internal audit", "Financial reporting"],
@@ -139,13 +154,13 @@ export default function HomeEN() {
               },
               {
                 tag: "Technology", tagColor: "#5B2D8E",
-                logo: "/images/project/logo-andtech.png",
+                logo: "/images/project/logo-andtech.png", logoH: 56,
                 name: "A&D Tech",
                 tagline: "LegalTech & digital transformation",
                 services: ["A&D OS — integrated ERP", "QuyĐịnh.vn — AI legal research", "iAgree.vn — e-signing & escrow", "Enterprise management software"],
                 url: null,
               },
-            ].map((c: {logo:string;name:string;tagline:string;services:string[];url:string|null;tag:string;tagColor:string}, i) => (
+            ].map((c: { logo: string; logoH: number; name: string; tagline: string; services: string[]; url: string | null; tag: string; tagColor: string }, i) => (
               <div key={i} style={{
                 border: "1px solid var(--border)",
                 padding: "36px 32px",
@@ -160,14 +175,21 @@ export default function HomeEN() {
                     {c.tag}
                   </span>
                 </div>
+
                 <div style={{ marginBottom: 20 }}>
                   <div style={{ height: 56, marginBottom: 12, display: "flex", alignItems: "center" }}>
                     <Image src={c.logo} alt={c.name} width={160} height={56}
                       style={{ height: 56, width: "auto", maxWidth: 180, objectFit: "contain", objectPosition: "left" }} />
                   </div>
-                  <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 20, fontWeight: 600, lineHeight: 1.2, color: "var(--text-primary)", marginBottom: 4 }}>{c.name}</h3>
+                  <h3 style={{
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontSize: 20, fontWeight: 600, lineHeight: 1.2,
+                    color: "var(--text-primary)", marginBottom: 4
+                  }}>{c.name}</h3>
                 </div>
+
                 <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 28, lineHeight: 1.6 }}>{c.tagline}</p>
+
                 <ul style={{ listStyle: "none", marginBottom: 36, flex: 1 }}>
                   {c.services.map(s => (
                     <li key={s} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "var(--text-secondary)", padding: "7px 0", borderBottom: "1px solid #F0EBE3" }}>
@@ -176,6 +198,7 @@ export default function HomeEN() {
                     </li>
                   ))}
                 </ul>
+
                 {c.url ? (
                   <a href={c.url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--gold)", fontWeight: 500, textDecoration: "none", letterSpacing: "0.03em" }}>
                     Visit website <ArrowUpRight size={13} />
@@ -191,10 +214,14 @@ export default function HomeEN() {
         </div>
       </section>
 
-      {/* TECH PRODUCTS */}
+      {/* ══════════════════════════════
+          A&D TECH PRODUCTS — dark section
+      ══════════════════════════════ */}
       <section className="section" style={{ background: "var(--bg-dark)", padding: "100px 0" }}>
         <div className="container">
           <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+
+            {/* Left */}
             <div className="products-sticky" style={{ position: "sticky", top: 100 }}>
               <p className="label" style={{ color: "var(--gold-light, #D4A832)", marginBottom: 16 }}>Tech ecosystem</p>
               <h2 className="font-display" style={{ fontSize: "clamp(36px, 4vw, 54px)", fontWeight: 500, lineHeight: 1.1, color: "#F7F3ED", marginBottom: 24 }}>
@@ -202,7 +229,7 @@ export default function HomeEN() {
                 <em style={{ color: "var(--gold-light, #D4A832)", fontStyle: "italic" }}>by A&D Tech</em>
               </h2>
               <p style={{ color: "rgba(247,243,237,0.55)", lineHeight: 1.75, fontSize: 15, marginBottom: 36, maxWidth: 380 }}>
-                From internal management, legal research to e-contract signing — A&D Tech fully digitizes legal operations for businesses.
+                From internal management and legal research to e-contract signing — A&D Tech fully digitizes legal operations for businesses.
               </p>
               <Link href="/en/ecosystem" style={{
                 display: "inline-flex", alignItems: "center", gap: 10,
@@ -213,12 +240,14 @@ export default function HomeEN() {
                 Explore ecosystem <ArrowRight size={14} />
               </Link>
             </div>
+
+            {/* Right — product list */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {[
-                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/logo-andos-white.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Integrated enterprise management platform for HR, accounting, contracts and workflow in one system." },
+                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/logo-andos-white.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Integrated enterprise management platform for HR, accounting, contracts and workflow in one unified system." },
                 { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/logo-quydinh-white.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Search all Vietnamese legal documents with AI — accurate, fast, updated daily." },
                 { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/logo-iagree-white.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Legally valid e-contract signing with escrow mechanism protecting both parties." },
-              ].map((p, i) => (
+              ].map((p: { tag: string; tagColor: string; logo: string; name: string; url: string; desc: string }, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.3)"; }}
@@ -242,15 +271,20 @@ export default function HomeEN() {
         </div>
       </section>
 
-      {/* MISSION & VALUES */}
+      {/* ══════════════════════════════
+          MISSION & VALUES
+      ══════════════════════════════ */}
       <section className="section" style={{ background: "var(--bg-secondary)", padding: "100px 0" }}>
         <div className="container">
           <div className="mission-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+
+            {/* Left — quote + chairman */}
             <div>
               <p className="label" style={{ color: "var(--gold)", marginBottom: 24 }}>Mission & Vision</p>
               <blockquote className="font-display" style={{ fontSize: "clamp(22px, 2.5vw, 30px)", fontStyle: "italic", fontWeight: 400, lineHeight: 1.55, color: "var(--text-primary)", marginBottom: 40, borderLeft: "3px solid var(--gold)", paddingLeft: 28 }}>
-                "We do not merely provide services — we are a trusted partner on the journey of Vietnamese business growth."
+                &ldquo;We do not merely provide services — we are a trusted partner on the journey of Vietnamese business growth.&rdquo;
               </blockquote>
+
               <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
                 <div style={{ width: 72, height: 72, borderRadius: "50%", overflow: "hidden", position: "relative", flexShrink: 0, border: "2px solid var(--gold)" }}>
                   <Image src="/images/leadership/daniel-nguyen.jpg" alt="Daniel Nguyen" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
@@ -261,11 +295,13 @@ export default function HomeEN() {
                 </div>
               </div>
             </div>
+
+            {/* Right — values */}
             <div className="values-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
               {[
                 { n: "01", t: "Integrity", d: "Honest and transparent in all advisory relationships." },
-                { n: "02", t: "Deep expertise", d: "Well-trained team, continuously updating knowledge." },
-                { n: "03", t: "Client-centric", d: "Every solution tailored specifically, not one-size-fits-all." },
+                { n: "02", t: "Deep expertise", d: "Well-trained team, continuously updating knowledge and skills." },
+                { n: "03", t: "Client-centric", d: "Every solution tailored specifically, never one-size-fits-all." },
                 { n: "04", t: "Continuous innovation", d: "Applying technology to improve service quality every day." },
               ].map(v => (
                 <div key={v.n} style={{ padding: "24px", background: "#fff", border: "1px solid var(--border)" }}>
@@ -279,7 +315,9 @@ export default function HomeEN() {
         </div>
       </section>
 
-      {/* LEADERSHIP */}
+      {/* ══════════════════════════════
+          LEADERSHIP
+      ══════════════════════════════ */}
       <section className="section" style={{ background: "#fff", padding: "100px 0" }}>
         <div className="container">
           <div style={{ textAlign: "center", marginBottom: 56 }}>
@@ -288,10 +326,16 @@ export default function HomeEN() {
               Leading A&D Group
             </h2>
           </div>
+
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             <div className="leadership-card" style={{ display: "grid", gridTemplateColumns: "280px 1fr", border: "1px solid var(--border)", overflow: "hidden" }}>
               <div className="leadership-photo" style={{ position: "relative", aspectRatio: "3/4" }}>
-                <Image src="/images/leadership/daniel-nguyen.jpg" alt="Daniel Nguyen" fill style={{ objectFit: "cover", objectPosition: "center 10%" }} />
+                <Image
+                  src="/images/leadership/daniel-nguyen.jpg"
+                  alt="Daniel Nguyen"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center 10%" }}
+                />
               </div>
               <div style={{ padding: "40px 40px", display: "flex", flexDirection: "column", justifyContent: "center", background: "#FAFAF8" }}>
                 <p className="label" style={{ color: "var(--gold)", marginBottom: 16 }}>Chairman</p>
@@ -310,7 +354,9 @@ export default function HomeEN() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ══════════════════════════════
+          CTA FINAL
+      ══════════════════════════════ */}
       <section style={{ position: "relative", padding: "120px 0", overflow: "hidden" }}>
         <Image src="/images/banner2.avif" alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} quality={85} />
         <div style={{ position: "absolute", inset: 0, background: "rgba(10,10,10,0.78)" }} />
