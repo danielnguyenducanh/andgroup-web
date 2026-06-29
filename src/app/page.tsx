@@ -267,11 +267,8 @@ export default function Home() {
                     {p.tag}
                   </span>
                   <div style={{ flex: 1 }}>
-                    <div style={{ height: 28, marginBottom: 6, display: "flex", alignItems: "center" }}>
-                      <Image src={p.logo} alt={p.name} width={80} height={28}
-                        style={{ height: 28, width: "auto", maxWidth: 100, objectFit: "contain",
-                          filter: "brightness(0) invert(1)" }} />
-                    </div>
+                    <div style={{ fontSize: 17, fontWeight: 600, color: "#F7F3ED", marginBottom: 6,
+                      fontFamily: "'Playfair Display', Georgia, serif", letterSpacing: "-0.01em" }}>{p.name}</div>
                     <div style={{ fontSize: 13, color: "rgba(247,243,237,0.5)", lineHeight: 1.5 }}>{p.desc}</div>
                   </div>
                   <ArrowUpRight size={16} style={{ color: "rgba(247,243,237,0.25)", flexShrink: 0 }} />
