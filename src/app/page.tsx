@@ -67,8 +67,9 @@ export default function Home() {
             priority
             quality={85}
           />
-          {/* Overlay đậm để text dễ đọc */}
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(250,250,248,0.97) 0%, rgba(250,250,248,0.97) 52%, rgba(250,250,248,0.05) 100%)" }} />
+          {/* Overlay desktop: trái đậm, phải mờ; mobile: phủ toàn bộ */}
+          <div className="hero-overlay" style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(250,250,248,0.97) 0%, rgba(250,250,248,0.97) 52%, rgba(250,250,248,0.05) 100%)" }} />
+          <style>{`.hero-overlay { background: linear-gradient(to right, rgba(250,250,248,0.97) 0%, rgba(250,250,248,0.97) 52%, rgba(250,250,248,0.05) 100%) !important; } @media (max-width: 768px) { .hero-overlay { background: rgba(250,250,248,0.93) !important; } }`}</style>
         </div>
         <div className="container" style={{ width: "100%", paddingTop: 40, paddingBottom: 40, position: "relative", zIndex: 1 }}>
           <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "55% 1fr", gap: 0, alignItems: "stretch", minHeight: "calc(100vh - 160px)" }}>
@@ -127,7 +128,7 @@ export default function Home() {
             </div>
 
             {/* ── RIGHT — ảnh rõ full ── */}
-            <div className="hero-img" style={{ position: "relative", minHeight: 500 }}>
+            <div className="hero-img" style={{ position: "relative", minHeight: "calc(100vh - 160px)", maxHeight: 700 }}>
               <Image
                 src="/images/team-group.jpg"
                 alt="Đội ngũ A&D Group"
