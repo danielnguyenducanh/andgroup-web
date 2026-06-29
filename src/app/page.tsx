@@ -146,7 +146,7 @@ export default function Home() {
             {[
               {
                 tag: "Pháp lý", tagColor: "#2C4A7C",
-                logo: "/images/project/andlaw-logo-v2-nobg.png", logoH: 48,
+                logo: "/images/project/andlaw-final.png", logoH: 52,
                 name: "A&D Law Firm",
                 tagline: "Tư vấn pháp lý doanh nghiệp",
                 services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "M&A & Pháp lý đầu tư"],
@@ -154,7 +154,7 @@ export default function Home() {
               },
               {
                 tag: "Kế toán & Thuế", tagColor: "#1E5C3A",
-                logo: "/images/project/andacc-logo-v2-nobg.png", logoH: 48,
+                logo: "/images/project/andacc-final.png", logoH: 52,
                 name: "A&D Accounting & Tax",
                 tagline: "Kế toán, thuế & tài chính doanh nghiệp",
                 services: ["Dịch vụ kế toán trọn gói", "Tư vấn & quyết toán thuế", "Kiểm toán nội bộ", "Báo cáo tài chính"],
@@ -162,7 +162,7 @@ export default function Home() {
               },
               {
                 tag: "Công nghệ", tagColor: "#5B2D8E",
-                logo: "/images/project/andtech-logo-nobg.png", logoH: 48,
+                logo: "/images/project/andtech-final.png", logoH: 52,
                 name: "A&D Tech",
                 tagline: "LegalTech & chuyển đổi số pháp lý",
                 services: ["A&D OS — ERP tích hợp", "QuyĐịnh.vn — AI pháp lý", "iAgree.vn — Ký số & escrow", "Phần mềm quản trị doanh nghiệp"],
@@ -246,9 +246,9 @@ export default function Home() {
             {/* Right — product list */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {[
-                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/andos-logo-v2-nobg.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
-                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/quydinh-logo-v2-nobg.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
-                { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/iagree-logo-v2-nobg.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
+                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/andos-final.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
+                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/quydinh-final.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
+                { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/iagree-final.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
               ].map((p: {tag:string;tagColor:string;logo:string;name:string;url:string;desc:string}, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
