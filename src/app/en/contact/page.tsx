@@ -252,15 +252,18 @@ export default function ContactPageEN() {
         </div>
       </section>
 
-      {/* Map placeholder */}
-      <div style={{
-        height: 300, background: "var(--bg-secondary)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        borderTop: "1px solid var(--border)",
-      }}>
-        <p style={{ fontSize: 14, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 6 }}>
-          <MapPin size={14} strokeWidth={1.5} /> Nhieu Loc Ward, Ho Chi Minh City
-        </p>
+      {/* Google Maps embed */}
+      <div style={{ height: 380, borderTop: "1px solid var(--border)", overflow: "hidden" }}>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1!2d106.6744!3d10.7956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2bdb20f01%3A0x5d5b9c5b5b5b5b5b!2s520%20C%C3%A1ch%20M%E1%BA%A1ng%20Th%C3%A1ng%20T%C3%A1m%2C%20Ph%C6%B0%E1%BB%9Dng%2011%2C%20Qu%E1%BA%ADn%203%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh!5e0!3m2!1sen!2svn!4v1700000000000!5m2!1sen!2svn"
+          width="100%"
+          height="380"
+          style={{ border: 0, display: "block" }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="A&D Group — 520 Cach Mang Thang Tam, Ho Chi Minh City"
+        />
       </div>
     </>
   );
