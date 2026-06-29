@@ -91,7 +91,7 @@ export default function Home() {
                 src="/images/banner1.avif"
                 alt="TP. Hồ Chí Minh"
                 fill
-                style={{ objectFit: "cover", objectPosition: "center top" }}
+                style={{ objectFit: "cover", objectPosition: "60% 30%" }}
                 priority
                 quality={90}
               />
@@ -121,7 +121,7 @@ export default function Home() {
             {[
               {
                 tag: "Pháp lý", tagColor: "#2C4A7C",
-                logo: "/images/project/andlaw-logo.png", logoH: 36,
+                logo: "/images/project/andlaw-logo-v2.jpg", logoH: 52,
                 name: "A&D Law Firm",
                 tagline: "Tư vấn pháp lý doanh nghiệp",
                 services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "M&A & Pháp lý đầu tư"],
@@ -129,7 +129,7 @@ export default function Home() {
               },
               {
                 tag: "Kế toán & Thuế", tagColor: "#1E5C3A",
-                logo: "/images/project/andacc-logo.png", logoH: 36,
+                logo: "/images/project/andacc-logo-v2.jpg", logoH: 52,
                 name: "A&D Accounting & Tax",
                 tagline: "Kế toán, thuế & tài chính doanh nghiệp",
                 services: ["Dịch vụ kế toán trọn gói", "Tư vấn & quyết toán thuế", "Kiểm toán nội bộ", "Báo cáo tài chính"],
@@ -137,13 +137,13 @@ export default function Home() {
               },
               {
                 tag: "Công nghệ", tagColor: "#5B2D8E",
-                logo: null, logoH: 36,
+                logo: "/images/project/andtech-logo.jpg", logoH: 52,
                 name: "A&D Tech",
                 tagline: "LegalTech & chuyển đổi số pháp lý",
                 services: ["A&D OS — ERP tích hợp", "QuyĐịnh.vn — AI pháp lý", "iAgree.vn — Ký số & escrow", "Phần mềm quản trị doanh nghiệp"],
                 url: null,
               },
-            ].map((c, i) => (
+            ].map((c: {logo:string;logoH:number;name:string;tagline:string;services:string[];url:string|null;tag:string;tagColor:string}, i) => (
               <div key={i} style={{
                 border: "1px solid var(--border)",
                 padding: "36px 32px",
@@ -160,13 +160,9 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* Logo or name */}
-                <div style={{ height: 48, display: "flex", alignItems: "center", marginBottom: 20 }}>
-                  {c.logo ? (
-                    <Image src={c.logo} alt={c.name} width={120} height={c.logoH} style={{ height: c.logoH, width: "auto", objectFit: "contain", objectPosition: "left" }} />
-                  ) : (
-                    <span className="font-display" style={{ fontSize: 28, fontWeight: 500, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>A&D Tech</span>
-                  )}
+                {/* Logo */}
+                <div style={{ height: 64, display: "flex", alignItems: "center", marginBottom: 20 }}>
+                  <Image src={c.logo} alt={c.name} width={160} height={c.logoH} style={{ height: c.logoH, width: "auto", objectFit: "contain", objectPosition: "left" }} />
                 </div>
 
                 <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 28, lineHeight: 1.6 }}>{c.tagline}</p>
@@ -225,10 +221,10 @@ export default function Home() {
             {/* Right — product list */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {[
-                { tag: "ERP", tagColor: "#6B9FD4", name: "A&D OS", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
-                { tag: "Legal AI", tagColor: "#9B8FD4", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
-                { tag: "Platform", tagColor: "#6BB5A0", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
-              ].map((p, i) => (
+                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/andos-logo-v2.jpg", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
+                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/quydinh-logo-v2.jpg", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
+                { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/iagree-logo-v2.jpg", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
+              ].map((p: {tag:string;tagColor:string;logo:string;name:string;url:string;desc:string}, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.3)"; }}
@@ -238,7 +234,7 @@ export default function Home() {
                     {p.tag}
                   </span>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 18, fontWeight: 500, color: "#F7F3ED", marginBottom: 4, fontFamily: "var(--font-display, Georgia, serif)" }}>{p.name}</div>
+                    <Image src={p.logo} alt={p.name} width={100} height={22} style={{ height: 20, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9, marginBottom: 6 }} />
                     <div style={{ fontSize: 13, color: "rgba(247,243,237,0.5)", lineHeight: 1.5 }}>{p.desc}</div>
                   </div>
                   <ArrowUpRight size={16} style={{ color: "rgba(247,243,237,0.25)", flexShrink: 0 }} />
@@ -315,7 +311,7 @@ export default function Home() {
                   src="/images/leadership/daniel-nguyen.jpg"
                   alt="Daniel Nguyen"
                   fill
-                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  style={{ objectFit: "cover", objectPosition: "center 10%" }}
                 />
               </div>
               {/* Info */}
