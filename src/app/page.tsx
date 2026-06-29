@@ -13,13 +13,16 @@ function Count({ to, suffix = "" }: { to: number; suffix?: string }) {
       if (!e.isIntersecting) return;
       obs.disconnect();
       let v = 0;
-      const step = Math.ceil(to / 55);
-      const t = setInterval(() => { v = Math.min(v + step, to); setN(v); if (v >= to) clearInterval(t); }, 28);
+      // Step theo nghìn nếu to >= 1000, ngược lại step nhỏ
+      const step = to >= 1000 ? Math.ceil(to / 60 / 1000) * 1000 : Math.ceil(to / 55);
+      const t = setInterval(() => { v = Math.min(v + step, to); setN(v); if (v >= to) clearInterval(t); }, 30);
     }, { threshold: 0.5 });
     if (el.current) obs.observe(el.current);
     return () => obs.disconnect();
   }, [to]);
-  return <span ref={el}>{n}{suffix}</span>;
+  // Format số có dấu chấm nghìn
+  const formatted = n >= 1000 ? n.toLocaleString("vi-VN") : n.toString();
+  return <span ref={el}>{formatted}{suffix}</span>;
 }
 
 const mobileStyles = `
@@ -97,7 +100,7 @@ export default function Home() {
               <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--border)", paddingTop: 36 }}>
                 {[
                   { val: 10, suf: "+", label: "Năm kinh nghiệm" },
-                  { val: 10, suf: "K+", label: "Khách hàng tin tưởng" },
+                  { val: 10000, suf: "+", label: "Khách hàng tin tưởng" },
                   { val: 3, suf: "", label: "Công ty thành viên" },
                 ].map((s, i) => (
                   <div key={i} style={{ paddingRight: 24 }}>
