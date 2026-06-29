@@ -5,11 +5,18 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
-const links = [
+const linksVI = [
   { href: "/about", label: "Về chúng tôi" },
   { href: "/ecosystem", label: "Hệ sinh thái" },
   { href: "/leadership", label: "Lãnh đạo" },
   { href: "/careers", label: "Tuyển dụng" },
+];
+
+const linksEN = [
+  { href: "/en/about", label: "About" },
+  { href: "/en/ecosystem", label: "Ecosystem" },
+  { href: "/en/leadership", label: "Leadership" },
+  { href: "/en/careers", label: "Careers" },
 ];
 
 export default function Navbar() {
@@ -24,9 +31,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const onDark = pathname !== "/" || scrolled;
-  // Hero nền sáng → dùng logo dark; trang khác hoặc scroll → nền trắng
-  const logoSrc = "/images/adgroup-black-logo.png"; // logo A&D Group chuẩn — tam giác đen, no background
+  const isEN = pathname.startsWith("/en");
+  const links = isEN ? linksEN : linksVI;
+  const contactLabel = isEN ? "Contact" : "Liên hệ ngay";
+  const contactHref = isEN ? "/en/contact" : "/contact";
+  const langTarget = isEN ? "/" : "/en";
+  const logoHref = isEN ? "/en" : "/";
+  const logoSrc = "/images/adgroup-black-logo.png";
 
   return (
     <header style={{
@@ -40,7 +51,7 @@ export default function Navbar() {
       <div className="container" style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: 1280, margin: "0 auto", padding: "0 48px" }}>
 
         {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+        <Link href={logoHref} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
           <Image
             src={logoSrc}
             alt="A&D Group"
@@ -65,13 +76,23 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link href="/contact" style={{
+          {/* Language switcher */}
+          <Link href={langTarget} style={{
+            fontSize: 11, fontWeight: 600, letterSpacing: "0.08em",
+            border: "1px solid var(--border-dark, #C8C0B0)",
+            color: "var(--text-secondary)",
+            padding: "6px 12px", textDecoration: "none",
+            flexShrink: 0, transition: "border-color 0.2s, color 0.2s",
+          }}>
+            {isEN ? "VI" : "EN"}
+          </Link>
+          <Link href={contactHref} style={{
             fontSize: 13, fontWeight: 500, letterSpacing: "0.06em",
             background: "var(--gold)", color: "#fff",
             padding: "9px 22px", textDecoration: "none",
             flexShrink: 0, transition: "opacity 0.2s",
           }}>
-            Liên hệ ngay
+            {contactLabel}
           </Link>
         </nav>
 
@@ -89,8 +110,11 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link href="/contact" onClick={() => setOpen(false)} style={{ display: "block", marginTop: 20, textAlign: "center", background: "var(--gold)", color: "#fff", padding: "12px", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
-            Liên hệ ngay
+          <Link href={contactHref} onClick={() => setOpen(false)} style={{ display: "block", marginTop: 20, textAlign: "center", background: "var(--gold)", color: "#fff", padding: "12px", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
+            {contactLabel}
+          </Link>
+          <Link href={langTarget} onClick={() => setOpen(false)} style={{ display: "block", marginTop: 10, textAlign: "center", border: "1px solid var(--border)", color: "var(--text-secondary)", padding: "10px", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>
+            {isEN ? "Tiếng Việt (VI)" : "English (EN)"}
           </Link>
         </div>
       )}

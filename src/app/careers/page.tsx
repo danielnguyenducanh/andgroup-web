@@ -1,5 +1,20 @@
 import Link from "next/link";
 
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .careers-perks-grid { grid-template-columns: 1fr 1fr !important; }
+    .careers-job-header { flex-direction: column !important; align-items: flex-start !important; }
+    .careers-apply-btn { width: 100% !important; text-align: center !important; }
+    .careers-hero { padding-top: 100px !important; padding-bottom: 56px !important; }
+    .container { padding-left: 20px !important; padding-right: 20px !important; }
+    .section { padding-top: 64px !important; padding-bottom: 64px !important; }
+    .section-sm { padding-top: 48px !important; padding-bottom: 48px !important; }
+  }
+  @media (max-width: 480px) {
+    .careers-perks-grid { grid-template-columns: 1fr !important; }
+  }
+`;
+
 const positions = [
   {
     dept: "Pháp lý",
@@ -55,8 +70,9 @@ const perks = [
 export default function CareersPage() {
   return (
     <>
+      <style>{mobileStyles}</style>
       {/* Hero */}
-      <section style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
+      <section className="careers-hero" style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
         <div className="container">
           <div style={{ maxWidth: 640 }}>
             <span className="label" style={{ display: "block", marginBottom: 20 }}>Tuyển dụng</span>
@@ -83,7 +99,7 @@ export default function CareersPage() {
           <div style={{ marginBottom: 40, textAlign: "center" }}>
             <h2 className="font-display display-md" style={{ color: "var(--text-primary)" }}>Tại sao gia nhập A&D Group?</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="careers-perks-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {perks.map((p) => (
               <div key={p.title} style={{ padding: "28px 24px", background: "var(--white)", border: "1px solid var(--border)" }}>
                 <div style={{ fontSize: 28, marginBottom: 12 }}>{p.icon}</div>
@@ -107,7 +123,7 @@ export default function CareersPage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             {positions.map((pos) => (
               <div key={pos.title} className="card-light" style={{ padding: "32px 36px" }}>
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
+                <div className="careers-job-header" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
                       <span style={{
@@ -142,7 +158,7 @@ export default function CareersPage() {
                     </div>
                   </div>
                   <div style={{ flexShrink: 0 }}>
-                    <Link href="/contact" className="btn-gold" style={{ padding: "12px 24px", fontSize: 13, whiteSpace: "nowrap" }}>
+                    <Link href="/contact" className="btn-gold careers-apply-btn" style={{ padding: "12px 24px", fontSize: 13, whiteSpace: "nowrap" }}>
                       Ứng tuyển →
                     </Link>
                   </div>

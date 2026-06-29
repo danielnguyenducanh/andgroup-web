@@ -1,6 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .about-story-grid { grid-template-columns: 1fr !important; }
+    .about-story-img { height: 280px !important; }
+    .about-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .about-timeline-item { flex-direction: column !important; gap: 12px !important; }
+    .about-hero { padding-top: 100px !important; padding-bottom: 56px !important; }
+    .container { padding-left: 20px !important; padding-right: 20px !important; }
+    .section { padding-top: 64px !important; padding-bottom: 64px !important; }
+    .section-sm { padding-top: 48px !important; padding-bottom: 48px !important; }
+  }
+  @media (max-width: 480px) {
+    .about-stats-grid { grid-template-columns: 1fr !important; }
+  }
+`;
+
 const milestones = [
   { year: "2013", title: "Thành lập A&D Law Firm", desc: "Khởi đầu với dịch vụ tư vấn pháp lý cho doanh nghiệp vừa và nhỏ tại TP.HCM." },
   { year: "2017", title: "Thành lập A&D Accounting & Tax", desc: "Mở rộng sang dịch vụ kế toán, thuế và tài chính doanh nghiệp." },
@@ -12,8 +28,9 @@ const milestones = [
 export default function AboutPage() {
   return (
     <>
+      <style>{mobileStyles}</style>
       {/* Hero */}
-      <section style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
+      <section className="about-hero" style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
         <div className="container">
           <div style={{ maxWidth: 720 }}>
             <span className="label" style={{ display: "block", marginBottom: 20 }}>Về A&D Group</span>
@@ -37,7 +54,7 @@ export default function AboutPage() {
       {/* Split: story + image */}
       <section className="section" style={{ background: "var(--white)" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
+          <div className="about-story-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
             <div>
               <span className="label" style={{ display: "block", marginBottom: 16 }}>Câu chuyện của chúng tôi</span>
               <h2 className="font-display display-md" style={{ color: "var(--text-primary)", marginBottom: 24 }}>
@@ -53,7 +70,7 @@ export default function AboutPage() {
                 Liên hệ với chúng tôi →
               </Link>
             </div>
-            <div style={{ position: "relative", height: 480, overflow: "hidden" }}>
+            <div className="about-story-img" style={{ position: "relative", height: 480, overflow: "hidden" }}>
               <Image
                 src="/images/banner1.avif"
                 alt="A&D Group office"
@@ -112,7 +129,7 @@ export default function AboutPage() {
       {/* Stats */}
       <section className="section-sm" style={{ background: "var(--bg-dark)" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32, textAlign: "center" }}>
+          <div className="about-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32, textAlign: "center" }}>
             {[
               { v: "10+", l: "Năm kinh nghiệm" },
               { v: "500+", l: "Doanh nghiệp" },

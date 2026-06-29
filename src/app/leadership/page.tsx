@@ -1,11 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .leadership-feature-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .leadership-hero { padding-top: 100px !important; padding-bottom: 56px !important; }
+    .leadership-bio-photo { padding-bottom: 75% !important; }
+    .leadership-tags { gap: 6px !important; }
+    .container { padding-left: 20px !important; padding-right: 20px !important; }
+    .section { padding-top: 64px !important; padding-bottom: 64px !important; }
+  }
+`;
+
 export default function LeadershipPage() {
   return (
     <>
+      <style>{mobileStyles}</style>
       {/* Hero */}
-      <section style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
+      <section className="leadership-hero" style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
         <div className="container">
           <div style={{ maxWidth: 600 }}>
             <span className="label" style={{ display: "block", marginBottom: 20 }}>Ban lãnh đạo</span>
@@ -29,10 +41,10 @@ export default function LeadershipPage() {
       {/* Chairman feature */}
       <section className="section" style={{ background: "var(--white)" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 72, alignItems: "start" }}>
+          <div className="leadership-feature-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 72, alignItems: "start" }}>
             {/* Photo */}
             <div>
-              <div style={{
+              <div className="leadership-bio-photo" style={{
                 position: "relative",
                 paddingBottom: "125%",
                 overflow: "hidden",
@@ -84,7 +96,7 @@ export default function LeadershipPage() {
                 <p style={{ fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 600, marginBottom: 16 }}>
                   Lĩnh vực chuyên môn
                 </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                <div className="leadership-tags" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {["Pháp lý doanh nghiệp", "M&A", "Tư vấn đầu tư", "LegalTech", "Quản trị tập đoàn", "Chuyển đổi số"].map((tag) => (
                     <span key={tag} style={{
                       fontSize: 13,

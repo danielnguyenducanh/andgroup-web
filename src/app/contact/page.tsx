@@ -1,8 +1,19 @@
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .contact-content-grid { grid-template-columns: 1fr !important; }
+    .contact-form-grid { grid-template-columns: 1fr !important; }
+    .contact-hero { padding-top: 100px !important; padding-bottom: 56px !important; }
+    .container { padding-left: 20px !important; padding-right: 20px !important; }
+    .section { padding-top: 64px !important; padding-bottom: 64px !important; }
+  }
+`;
+
 export default function ContactPage() {
   return (
     <>
+      <style>{mobileStyles}</style>
       {/* Hero */}
-      <section style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
+      <section className="contact-hero" style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
         <div className="container">
           <div style={{ maxWidth: 560 }}>
             <span className="label" style={{ display: "block", marginBottom: 20 }}>Liên hệ</span>
@@ -26,7 +37,7 @@ export default function ContactPage() {
       {/* Contact content */}
       <section className="section" style={{ background: "var(--white)" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 72 }}>
+          <div className="contact-content-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 72 }}>
 
             {/* Left: Info */}
             <div>
@@ -132,7 +143,7 @@ export default function ContactPage() {
                 </p>
 
                 <form style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  <div className="contact-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                     {[
                       { label: "Họ và tên", placeholder: "Nguyễn Văn A", type: "text" },
                       { label: "Email", placeholder: "email@company.vn", type: "email" },

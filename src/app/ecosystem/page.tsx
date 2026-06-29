@@ -1,9 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .eco-companies-grid { grid-template-columns: 1fr !important; }
+    .eco-product-card { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .eco-hero { padding-top: 100px !important; padding-bottom: 56px !important; }
+    .eco-services-grid { grid-template-columns: 1fr !important; }
+    .container { padding-left: 20px !important; padding-right: 20px !important; }
+    .section { padding-top: 64px !important; padding-bottom: 64px !important; }
+  }
+`;
+
 const companies = [
   {
-    logo: "/images/project/andlaw-logo.png",
+    logo: "/images/project/logo-andlaw.png",
     logoType: "image" as const,
     tag: "Pháp lý",
     tagColor: "#1A5276",
@@ -14,7 +25,7 @@ const companies = [
     services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "Pháp lý đầu tư & M&A", "Sở hữu trí tuệ", "Lao động & nhân sự"],
   },
   {
-    logo: "/images/project/andacc-logo.png",
+    logo: "/images/project/logo-andacc.png",
     logoType: "image" as const,
     tag: "Kế toán",
     tagColor: "#1E6B3C",
@@ -56,8 +67,9 @@ const products = [
 export default function EcosystemPage() {
   return (
     <>
+      <style>{mobileStyles}</style>
       {/* Hero */}
-      <section style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
+      <section className="eco-hero" style={{ background: "var(--bg-primary)", paddingTop: 140, paddingBottom: 80 }}>
         <div className="container">
           <div style={{ maxWidth: 680 }}>
             <span className="label" style={{ display: "block", marginBottom: 20 }}>Hệ sinh thái A&D</span>
@@ -87,7 +99,7 @@ export default function EcosystemPage() {
               Dịch vụ chuyên nghiệp
             </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+          <div className="eco-companies-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
             {companies.map((c) => (
               <div key={c.name} className="card-light" style={{ padding: 40 }}>
                 <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
@@ -131,7 +143,7 @@ export default function EcosystemPage() {
                 </div>
                 <p style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>{c.desc}</p>
                 <div className="divider" style={{ marginBottom: 24 }} />
-                <ul style={{ listStyle: "none", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                <ul className="eco-services-grid" style={{ listStyle: "none", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   {c.services.map((s) => (
                     <li key={s} style={{ fontSize: 13, color: "var(--text-secondary)", display: "flex", alignItems: "flex-start", gap: 8 }}>
                       <span style={{ color: "var(--gold)", flexShrink: 0 }}>✓</span> {s}
@@ -155,7 +167,7 @@ export default function EcosystemPage() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             {products.map((p, i) => (
-              <div key={p.name} className="card-dark" style={{
+              <div key={p.name} className="card-dark eco-product-card" style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1.5fr",
                 gap: 48,
