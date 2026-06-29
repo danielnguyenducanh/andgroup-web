@@ -22,15 +22,40 @@ function Count({ to, suffix = "" }: { to: number; suffix?: string }) {
   return <span ref={el}>{n}{suffix}</span>;
 }
 
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; min-height: unset !important; }
+    .hero-img { display: none !important; }
+    .hero-h1 { font-size: 40px !important; }
+    .companies-grid { grid-template-columns: 1fr !important; }
+    .products-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .products-sticky { position: static !important; }
+    .mission-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    .leadership-card { grid-template-columns: 1fr !important; }
+    .leadership-photo { aspect-ratio: 4/3 !important; max-height: 300px !important; }
+    .container { padding-left: 20px !important; padding-right: 20px !important; }
+    .section { padding-top: 64px !important; padding-bottom: 64px !important; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .values-grid { grid-template-columns: 1fr 1fr !important; }
+    .hero-section { min-height: unset !important; padding-top: 100px !important; padding-bottom: 48px !important; }
+  }
+  @media (max-width: 480px) {
+    .hero-h1 { font-size: 34px !important; }
+    .stats-grid { grid-template-columns: 1fr 1fr !important; }
+  }
+`;
+
 export default function Home() {
   return (
     <>
+      <style>{mobileStyles}</style>
+
       {/* ══════════════════════════════
           HERO — split layout
       ══════════════════════════════ */}
-      <section style={{ background: "var(--bg-primary)", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 72 }}>
+      <section className="hero-section" style={{ background: "var(--bg-primary)", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 72 }}>
         <div className="container" style={{ width: "100%", paddingTop: 40, paddingBottom: 40 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "55% 1fr", gap: 80, alignItems: "center", minHeight: "calc(100vh - 160px)" }}>
+          <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "55% 1fr", gap: 80, alignItems: "center", minHeight: "calc(100vh - 160px)" }}>
 
             {/* ── LEFT ── */}
             <div>
@@ -39,7 +64,7 @@ export default function Home() {
                 Tập đoàn A&D Group
               </p>
 
-              <h1 className="font-display" style={{ fontSize: "clamp(48px, 5.8vw, 80px)", fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.02em", color: "var(--text-primary)", marginBottom: 28 }}>
+              <h1 className="hero-h1 font-display" style={{ fontSize: "clamp(48px, 5.8vw, 80px)", fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.02em", color: "var(--text-primary)", marginBottom: 28 }}>
                 Kiến tạo giá trị<br />
                 bền vững cho<br />
                 <em style={{ color: "var(--gold)", fontStyle: "italic" }}>doanh nghiệp Việt.</em>
@@ -69,7 +94,7 @@ export default function Home() {
               </div>
 
               {/* Stats */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--border)", paddingTop: 36 }}>
+              <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--border)", paddingTop: 36 }}>
                 {[
                   { val: 10, suf: "+", label: "Năm kinh nghiệm" },
                   { val: 500, suf: "+", label: "Doanh nghiệp tin tưởng" },
@@ -86,7 +111,7 @@ export default function Home() {
             </div>
 
             {/* ── RIGHT — ảnh ── */}
-            <div style={{ position: "relative", height: "calc(100vh - 160px)", maxHeight: 700, minHeight: 500 }}>
+            <div className="hero-img" style={{ position: "relative", height: "calc(100vh - 160px)", maxHeight: 700, minHeight: 500 }}>
               <Image
                 src="/images/banner1.avif"
                 alt="TP. Hồ Chí Minh"
@@ -105,7 +130,7 @@ export default function Home() {
       {/* ══════════════════════════════
           3 CÔNG TY THÀNH VIÊN
       ══════════════════════════════ */}
-      <section style={{ background: "#fff", padding: "100px 0" }}>
+      <section className="section" style={{ background: "#fff", padding: "100px 0" }}>
         <div className="container">
           <div style={{ marginBottom: 64 }}>
             <p className="label" style={{ color: "var(--gold)", marginBottom: 16 }}>Công ty thành viên</p>
@@ -117,11 +142,11 @@ export default function Home() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="companies-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {[
               {
                 tag: "Pháp lý", tagColor: "#2C4A7C",
-                logo: "/images/project/andlaw-logo-v2-tight.png", logoH: 44,
+                logo: "/images/project/andlaw-logo-v2-nobg.png", logoH: 48,
                 name: "A&D Law Firm",
                 tagline: "Tư vấn pháp lý doanh nghiệp",
                 services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "M&A & Pháp lý đầu tư"],
@@ -129,7 +154,7 @@ export default function Home() {
               },
               {
                 tag: "Kế toán & Thuế", tagColor: "#1E5C3A",
-                logo: "/images/project/andacc-logo-v2-tight.png", logoH: 44,
+                logo: "/images/project/andacc-logo-v2-nobg.png", logoH: 48,
                 name: "A&D Accounting & Tax",
                 tagline: "Kế toán, thuế & tài chính doanh nghiệp",
                 services: ["Dịch vụ kế toán trọn gói", "Tư vấn & quyết toán thuế", "Kiểm toán nội bộ", "Báo cáo tài chính"],
@@ -137,7 +162,7 @@ export default function Home() {
               },
               {
                 tag: "Công nghệ", tagColor: "#5B2D8E",
-                logo: "/images/project/andtech-logo-tight.png", logoH: 44,
+                logo: "/images/project/andtech-logo-nobg.png", logoH: 48,
                 name: "A&D Tech",
                 tagline: "LegalTech & chuyển đổi số pháp lý",
                 services: ["A&D OS — ERP tích hợp", "QuyĐịnh.vn — AI pháp lý", "iAgree.vn — Ký số & escrow", "Phần mềm quản trị doanh nghiệp"],
@@ -194,12 +219,12 @@ export default function Home() {
       {/* ══════════════════════════════
           A&D TECH PRODUCTS — dark section
       ══════════════════════════════ */}
-      <section style={{ background: "var(--bg-dark)", padding: "100px 0" }}>
+      <section className="section" style={{ background: "var(--bg-dark)", padding: "100px 0" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+          <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
 
             {/* Left */}
-            <div style={{ position: "sticky", top: 100 }}>
+            <div className="products-sticky" style={{ position: "sticky", top: 100 }}>
               <p className="label" style={{ color: "var(--gold-light, #D4A832)", marginBottom: 16 }}>Hệ sinh thái công nghệ</p>
               <h2 className="font-display" style={{ fontSize: "clamp(36px, 4vw, 54px)", fontWeight: 500, lineHeight: 1.1, color: "#F7F3ED", marginBottom: 24 }}>
                 3 sản phẩm số<br />
@@ -221,9 +246,9 @@ export default function Home() {
             {/* Right — product list */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {[
-                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/andos-logo-v2.jpg", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
-                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/quydinh-logo-v2.jpg", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
-                { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/iagree-logo-v2.jpg", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
+                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/andos-logo-v2-nobg.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
+                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/quydinh-logo-v2-nobg.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
+                { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/iagree-logo-v2-nobg.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
               ].map((p: {tag:string;tagColor:string;logo:string;name:string;url:string;desc:string}, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
@@ -248,9 +273,9 @@ export default function Home() {
       {/* ══════════════════════════════
           SỨ MỆNH & GIÁ TRỊ
       ══════════════════════════════ */}
-      <section style={{ background: "var(--bg-secondary)", padding: "100px 0" }}>
+      <section className="section" style={{ background: "var(--bg-secondary)", padding: "100px 0" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+          <div className="mission-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
 
             {/* Left — quote + chairman */}
             <div>
@@ -272,7 +297,7 @@ export default function Home() {
             </div>
 
             {/* Right — values */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            <div className="values-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
               {[
                 { n: "01", t: "Chính trực", d: "Trung thực và minh bạch trong mọi quan hệ tư vấn." },
                 { n: "02", t: "Chuyên môn sâu", d: "Đội ngũ được đào tạo bài bản, liên tục cập nhật kiến thức." },
@@ -293,7 +318,7 @@ export default function Home() {
       {/* ══════════════════════════════
           BAN LÃNH ĐẠO
       ══════════════════════════════ */}
-      <section style={{ background: "#fff", padding: "100px 0" }}>
+      <section className="section" style={{ background: "#fff", padding: "100px 0" }}>
         <div className="container">
           <div style={{ textAlign: "center", marginBottom: 56 }}>
             <p className="label" style={{ color: "var(--gold)", marginBottom: 12 }}>Ban lãnh đạo</p>
@@ -304,9 +329,9 @@ export default function Home() {
 
           {/* Chairman — full card */}
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", border: "1px solid var(--border)", overflow: "hidden" }}>
+            <div className="leadership-card" style={{ display: "grid", gridTemplateColumns: "280px 1fr", border: "1px solid var(--border)", overflow: "hidden" }}>
               {/* Photo */}
-              <div style={{ position: "relative", aspectRatio: "3/4" }}>
+              <div className="leadership-photo" style={{ position: "relative", aspectRatio: "3/4" }}>
                 <Image
                   src="/images/leadership/daniel-nguyen.jpg"
                   alt="Daniel Nguyen"
