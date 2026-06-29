@@ -121,7 +121,7 @@ export default function Home() {
             {[
               {
                 tag: "Pháp lý", tagColor: "#2C4A7C",
-                logo: "/images/project/andlaw-logo-v2.jpg", logoH: 52,
+                logo: "/images/project/andlaw-logo-v2.jpg", logoH: 56,
                 name: "A&D Law Firm",
                 tagline: "Tư vấn pháp lý doanh nghiệp",
                 services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "M&A & Pháp lý đầu tư"],
@@ -129,7 +129,7 @@ export default function Home() {
               },
               {
                 tag: "Kế toán & Thuế", tagColor: "#1E5C3A",
-                logo: "/images/project/andacc-logo-v2.jpg", logoH: 52,
+                logo: "/images/project/andacc-logo-v2.jpg", logoH: 56,
                 name: "A&D Accounting & Tax",
                 tagline: "Kế toán, thuế & tài chính doanh nghiệp",
                 services: ["Dịch vụ kế toán trọn gói", "Tư vấn & quyết toán thuế", "Kiểm toán nội bộ", "Báo cáo tài chính"],
@@ -137,7 +137,7 @@ export default function Home() {
               },
               {
                 tag: "Công nghệ", tagColor: "#5B2D8E",
-                logo: "/images/project/andtech-logo.jpg", logoH: 52,
+                logo: "/images/project/andtech-logo.jpg", logoH: 56,
                 name: "A&D Tech",
                 tagline: "LegalTech & chuyển đổi số pháp lý",
                 services: ["A&D OS — ERP tích hợp", "QuyĐịnh.vn — AI pháp lý", "iAgree.vn — Ký số & escrow", "Phần mềm quản trị doanh nghiệp"],
@@ -161,8 +161,8 @@ export default function Home() {
                 </div>
 
                 {/* Logo */}
-                <div style={{ height: 64, display: "flex", alignItems: "center", marginBottom: 20 }}>
-                  <Image src={c.logo} alt={c.name} width={160} height={c.logoH} style={{ height: c.logoH, width: "auto", objectFit: "contain", objectPosition: "left" }} />
+                <div style={{ height: 72, display: "flex", alignItems: "center", marginBottom: 20 }}>
+                  <Image src={c.logo} alt={c.name} width={200} height={c.logoH} style={{ height: c.logoH, width: "auto", maxWidth: "100%", objectFit: "contain" }} />
                 </div>
 
                 <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 28, lineHeight: 1.6 }}>{c.tagline}</p>
@@ -234,7 +234,7 @@ export default function Home() {
                     {p.tag}
                   </span>
                   <div style={{ flex: 1 }}>
-                    <Image src={p.logo} alt={p.name} width={100} height={22} style={{ height: 20, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9, marginBottom: 6 }} />
+                    <div style={{ fontSize: 17, fontWeight: 500, color: "#F7F3ED", marginBottom: 6, letterSpacing: "-0.01em" }}>{p.name}</div>
                     <div style={{ fontSize: 13, color: "rgba(247,243,237,0.5)", lineHeight: 1.5 }}>{p.desc}</div>
                   </div>
                   <ArrowUpRight size={16} style={{ color: "rgba(247,243,237,0.25)", flexShrink: 0 }} />
