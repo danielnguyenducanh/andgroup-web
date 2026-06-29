@@ -185,9 +185,13 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* Logo */}
-                <div style={{ height: 72, display: "flex", alignItems: "center", marginBottom: 20 }}>
-                  <Image src={c.logo} alt={c.name} width={200} height={c.logoH} style={{ height: c.logoH, width: "auto", maxWidth: "100%", objectFit: "contain" }} />
+                {/* Company identity */}
+                <div style={{ marginBottom: 20 }}>
+                  <h3 style={{
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontSize: 22, fontWeight: 600, lineHeight: 1.2,
+                    color: "var(--text-primary)", marginBottom: 4
+                  }}>{c.name}</h3>
                 </div>
 
                 <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 28, lineHeight: 1.6 }}>{c.tagline}</p>
@@ -365,9 +369,8 @@ export default function Home() {
         <div style={{ position: "absolute", inset: 0, background: "rgba(10,10,10,0.78)" }} />
         <div className="container" style={{ position: "relative", textAlign: "center" }}>
           <p className="label" style={{ color: "var(--gold)", marginBottom: 20 }}>Bắt đầu hợp tác</p>
-          <h2 className="font-display" style={{ fontSize: "clamp(36px, 5vw, 68px)", fontWeight: 500, color: "#F7F3ED", lineHeight: 1.1, marginBottom: 20, maxWidth: 700, margin: "0 auto 20px" }}>
-            Đồng hành cùng<br />
-            <em style={{ color: "var(--gold)", fontStyle: "italic" }}>A&D Group</em>
+          <h2 className="font-display" style={{ fontSize: "clamp(32px, 4.5vw, 60px)", fontWeight: 500, color: "#F7F3ED", lineHeight: 1.15, maxWidth: 640, margin: "0 auto 20px" }}>
+            Sẵn sàng đồng hành cùng doanh nghiệp của bạn
           </h2>
           <p style={{ color: "rgba(247,243,237,0.55)", fontSize: 16, maxWidth: 480, margin: "0 auto 48px", lineHeight: 1.7 }}>
             Pháp lý, kế toán, công nghệ — giải pháp toàn diện cho doanh nghiệp của bạn.
