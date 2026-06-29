@@ -146,7 +146,7 @@ export default function Home() {
             {[
               {
                 tag: "Pháp lý", tagColor: "#2C4A7C",
-                logo: "/images/project/andlaw-final.png", logoH: 52,
+                logo: "/images/project/logo-andlaw.png", logoH: 52,
                 name: "A&D Law Firm",
                 tagline: "Tư vấn pháp lý doanh nghiệp",
                 services: ["Tư vấn pháp lý thường xuyên", "Soạn thảo & rà soát hợp đồng", "Tranh tụng & giải quyết tranh chấp", "M&A & Pháp lý đầu tư"],
@@ -154,7 +154,7 @@ export default function Home() {
               },
               {
                 tag: "Kế toán & Thuế", tagColor: "#1E5C3A",
-                logo: "/images/project/andacc-final.png", logoH: 52,
+                logo: "/images/project/logo-andacc.png", logoH: 52,
                 name: "A&D Accounting & Tax",
                 tagline: "Kế toán, thuế & tài chính doanh nghiệp",
                 services: ["Dịch vụ kế toán trọn gói", "Tư vấn & quyết toán thuế", "Kiểm toán nội bộ", "Báo cáo tài chính"],
@@ -162,7 +162,7 @@ export default function Home() {
               },
               {
                 tag: "Công nghệ", tagColor: "#5B2D8E",
-                logo: "/images/project/andtech-final.png", logoH: 52,
+                logo: "/images/project/logo-andtech.png", logoH: 52,
                 name: "A&D Tech",
                 tagline: "LegalTech & chuyển đổi số pháp lý",
                 services: ["A&D OS — ERP tích hợp", "QuyĐịnh.vn — AI pháp lý", "iAgree.vn — Ký số & escrow", "Phần mềm quản trị doanh nghiệp"],
@@ -187,9 +187,13 @@ export default function Home() {
 
                 {/* Company identity */}
                 <div style={{ marginBottom: 20 }}>
+                  <div style={{ height: 56, marginBottom: 12, display: "flex", alignItems: "center" }}>
+                    <Image src={c.logo} alt={c.name} width={160} height={56}
+                      style={{ height: 56, width: "auto", maxWidth: 180, objectFit: "contain", objectPosition: "left" }} />
+                  </div>
                   <h3 style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: 22, fontWeight: 600, lineHeight: 1.2,
+                    fontSize: 20, fontWeight: 600, lineHeight: 1.2,
                     color: "var(--text-primary)", marginBottom: 4
                   }}>{c.name}</h3>
                 </div>
@@ -250,9 +254,9 @@ export default function Home() {
             {/* Right — product list */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {[
-                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/andos-final.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
-                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/quydinh-final.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
-                { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/iagree-final.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
+                { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/logo-andos.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
+                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/logo-quydinh.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
+                { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/logo-iagree.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
               ].map((p: {tag:string;tagColor:string;logo:string;name:string;url:string;desc:string}, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
@@ -263,7 +267,11 @@ export default function Home() {
                     {p.tag}
                   </span>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 17, fontWeight: 500, color: "#F7F3ED", marginBottom: 6, letterSpacing: "-0.01em" }}>{p.name}</div>
+                    <div style={{ height: 28, marginBottom: 6, display: "flex", alignItems: "center" }}>
+                      <Image src={p.logo} alt={p.name} width={80} height={28}
+                        style={{ height: 28, width: "auto", maxWidth: 100, objectFit: "contain",
+                          filter: "brightness(0) invert(1)" }} />
+                    </div>
                     <div style={{ fontSize: 13, color: "rgba(247,243,237,0.5)", lineHeight: 1.5 }}>{p.desc}</div>
                   </div>
                   <ArrowUpRight size={16} style={{ color: "rgba(247,243,237,0.25)", flexShrink: 0 }} />
