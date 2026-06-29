@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Scale, BarChart2, Cpu } from "lucide-react";
 
@@ -103,7 +104,18 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          {/* Quote */}
+          {/* Team photo + Quote */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", marginBottom: 0 }}>
+            <Image
+              src="/images/team-group.jpg"
+              alt="Đội ngũ A&D Group"
+              fill
+              style={{ objectFit: "cover", objectPosition: "center 15%" }}
+              quality={90}
+            />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(12,12,12,0.45) 0%, transparent 50%)" }} />
+          </div>
           <div style={{ background: "var(--bg-secondary)", padding: "48px 40px", borderLeft: "3px solid var(--gold)" }}>
             <blockquote className="font-display" style={{ fontSize: "clamp(20px, 2.2vw, 26px)", fontStyle: "italic", fontWeight: 400, lineHeight: 1.6, color: "var(--text-primary)", marginBottom: 32 }}>
               "Chúng tôi không chỉ cung cấp dịch vụ — chúng tôi là người đồng hành tin cậy, giúp khách hàng vượt qua mọi thách thức pháp lý, tài chính và công nghệ."
@@ -117,6 +129,7 @@ export default function AboutPage() {
                 <div style={{ fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gold)" }}>Chairman, A&D Group</div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </section>

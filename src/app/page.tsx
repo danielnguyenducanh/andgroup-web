@@ -116,15 +116,17 @@ export default function Home() {
             {/* ── RIGHT — ảnh ── */}
             <div className="hero-img" style={{ position: "relative", height: "calc(100vh - 160px)", maxHeight: 700, minHeight: 500 }}>
               <Image
-                src="/images/banner1.avif"
-                alt="TP. Hồ Chí Minh"
+                src="/images/team-unity.jpg"
+                alt="Đội ngũ A&D Group"
                 fill
-                style={{ objectFit: "cover", objectPosition: "60% 30%" }}
+                style={{ objectFit: "cover", objectPosition: "center 20%" }}
                 priority
                 quality={90}
               />
               {/* Gradient trái để blend với nền */}
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, var(--bg-primary) 0%, transparent 18%)" }} />
+              {/* Gradient dưới nhẹ */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(12,12,12,0.3) 0%, transparent 40%)" }} />
             </div>
           </div>
         </div>
