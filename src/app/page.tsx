@@ -252,6 +252,7 @@ export default function Home() {
                 { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/logo-andos-white.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
                 { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/logo-quydinh-white.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
                 { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/logo-iagree-white.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
+                { tag: "Dịch vụ", tagColor: "#D4A832", logo: "/images/project/logo-andos-white.png", name: "Văn phòng ảo A&D", url: "https://office.andgroup.com.vn", desc: "Địa chỉ đăng ký kinh doanh hợp pháp, hậu thuẫn bởi A&D Law Firm và A&D Accounting & Tax." },
               ].map((p: {tag:string;tagColor:string;logo:string;name:string;url:string;desc:string}, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}

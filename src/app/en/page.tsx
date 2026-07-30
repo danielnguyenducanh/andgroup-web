@@ -247,6 +247,7 @@ export default function HomeEN() {
                 { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/logo-andos-white.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Integrated enterprise management platform for HR, accounting, contracts and workflow in one unified system." },
                 { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/logo-quydinh-white.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Search all Vietnamese legal documents with AI — accurate, fast, updated daily." },
                 { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/logo-iagree-white.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Legally valid e-contract signing with escrow mechanism protecting both parties." },
+                { tag: "Service", tagColor: "#D4A832", logo: "/images/project/logo-andos-white.png", name: "A&D Virtual Office", url: "https://office.andgroup.com.vn", desc: "Legal business registration address, backed by A&D Law Firm and A&D Accounting & Tax." },
               ].map((p: { tag: string; tagColor: string; logo: string; name: string; url: string; desc: string }, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
