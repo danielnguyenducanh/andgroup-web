@@ -51,7 +51,6 @@ export default function Footer() {
     email: "Email",
     website: "Website",
     privacy: isEN ? "Privacy policy" : "Chính sách bảo mật",
-    terms: isEN ? "Terms of use" : "Điều khoản sử dụng",
   };
 
   return (
@@ -181,11 +180,10 @@ export default function Footer() {
             © {new Date().getFullYear()} A&D Group. All rights reserved.
           </p>
           <div style={{ display: "flex", gap: 24 }}>
-            <Link href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>
+            {/* Trước đây href="#" — link hiện ra nhưng bấm không đi đâu. Thư bản tin
+                bắt buộc trỏ tới Chính sách bảo mật nên link này phải sống thật. */}
+            <Link href={isEN ? "/en/privacy" : "/privacy"} style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>
               {t.privacy}
-            </Link>
-            <Link href="#" style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>
-              {t.terms}
             </Link>
           </div>
         </div>
