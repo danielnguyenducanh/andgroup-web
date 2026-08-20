@@ -84,7 +84,52 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Gửi email thất bại." }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true });
+    // ── Đẩy lead vào ERP (thêm 20/08) ────────────────────────────────────────
+    // Trước đây route này CHỈ gửi email tới support@andgroup.com.vn. Lead nằm
+    // trong hộp thư, không vào hệ thống: không có case, không có SLA, không ai
+    // đếm được, và không thể làm follow-up. andlaw đã đẩy ERP từ lâu — andgroup
+    // bị bỏ quên.
+    //
+    // Không chặn phản hồi cho khách nếu ERP lỗi: email báo nội bộ ở trên đã đi
+    // rồi, mất lead là không thể. Nhưng KHÔNG nuốt lỗi im lặng — phải log, vì
+    // đúng kiểu `catch {}` rỗng đã giấu một bug ghi sai cột suốt nhiều tháng
+    // bên andlaw.
+    let erpCaseCode: string | null = null;
+    try {
+      const erpUrl = process.env.NEXT_PUBLIC_ERP_URL ?? "https://erp.andos.vn";
+      const erpSecret = process.env.CONTACT_FORM_WEBHOOK_SECRET;
+      if (!erpSecret) {
+        console.error("[contact->ERP] CONTACT_FORM_WEBHOOK_SECRET chưa set — bỏ qua đẩy ERP");
+      } else {
+        const chiTiet = [
+          message,
+          company ? `Công ty: ${company}` : "",
+          service ? `Dịch vụ quan tâm: ${service}` : "",
+        ].filter(Boolean).join("\n\n");
+
+        const erpRes = await fetch(`${erpUrl}/api/webhooks/contact-form`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-Webhook-Key": erpSecret },
+          body: JSON.stringify({
+            name,
+            email,
+            phone: phone || "",
+            message: chiTiet,
+            source: "andgroup-web",
+          }),
+        });
+        if (erpRes.ok) {
+          const j = await erpRes.json().catch(() => null);
+          erpCaseCode = j?.case_code ?? null;
+        } else {
+          console.error("[contact->ERP] webhook lỗi:", erpRes.status, await erpRes.text());
+        }
+      }
+    } catch (e) {
+      console.error("[contact->ERP] đẩy thất bại:", e);
+    }
+
+    return NextResponse.json({ success: true, erpCaseCode });
   } catch (err) {
     console.error("Contact form error:", err);
     return NextResponse.json({ error: "Lỗi server." }, { status: 500 });
