@@ -9,6 +9,7 @@ const linksVI = [
   { href: "/about", label: "Về chúng tôi" },
   { href: "/ecosystem", label: "Hệ sinh thái" },
   { href: "/leadership", label: "Lãnh đạo" },
+  { href: "/tin-tuc", label: "Tin tức" },
   { href: "/careers", label: "Tuyển dụng" },
 ];
 
@@ -16,6 +17,7 @@ const linksEN = [
   { href: "/en/about", label: "About" },
   { href: "/en/ecosystem", label: "Ecosystem" },
   { href: "/en/leadership", label: "Leadership" },
+  { href: "/en/insights", label: "News" },
   { href: "/en/careers", label: "Careers" },
 ];
 
@@ -43,8 +45,16 @@ export default function Navbar() {
   const switchLocale = (next: "vi" | "en") => {
     if (typeof window === "undefined") return;
     const { pathname, search, hash } = window.location;
+    // Bỏ prefix /en hiện có để lấy path gốc (VI).
     let base = pathname.replace(/^\/en(?=\/|$)/, "");
     if (base === "") base = "/";
+    // Localized pathname: VI "/tin-tuc" ⇔ EN "/insights" (khác tên segment).
+    // Đổi đúng segment theo chiều chuyển để không ra 404 (/en/tin-tuc không tồn tại).
+    if (next === "en") {
+      base = base.replace(/^\/tin-tuc(?=\/|$)/, "/insights");
+    } else {
+      base = base.replace(/^\/insights(?=\/|$)/, "/tin-tuc");
+    }
     const target = next === "en" ? (base === "/" ? "/en" : `/en${base}`) : base;
     window.location.href = target + search + hash;
   };

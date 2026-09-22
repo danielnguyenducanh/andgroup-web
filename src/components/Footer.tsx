@@ -19,6 +19,7 @@ const navLinksVI = [
   { href: "/about", label: "Về chúng tôi" },
   { href: "/ecosystem", label: "Hệ sinh thái" },
   { href: "/leadership", label: "Lãnh đạo" },
+  { href: "/tin-tuc", label: "Tin tức" },
   { href: "/careers", label: "Tuyển dụng" },
   { href: "/contact", label: "Liên hệ" },
 ];
@@ -27,6 +28,7 @@ const navLinksEN = [
   { href: "/en/about", label: "About" },
   { href: "/en/ecosystem", label: "Ecosystem" },
   { href: "/en/leadership", label: "Leadership" },
+  { href: "/en/insights", label: "News" },
   { href: "/en/careers", label: "Careers" },
   { href: "/en/contact", label: "Contact" },
 ];
