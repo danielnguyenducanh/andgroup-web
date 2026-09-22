@@ -96,10 +96,19 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Mobile */}
-        <button onClick={() => setOpen(!open)} style={{ display: "none", background: "none", border: "none", cursor: "pointer", padding: 4 }} className="mobile-toggle" aria-label="menu">
-          {open ? <X size={22} color="var(--text-primary)" /> : <Menu size={22} color="var(--text-primary)" />}
-        </button>
+        {/* Mobile: language toggle hiện ngay topbar cạnh hamburger (giống andlaw.vn) */}
+        <div className="mobile-top-actions" style={{ display: "none", alignItems: "center", gap: 8, flexShrink: 0 }}>
+          <Link href={langTarget} className="nav-lang" style={{
+            fontSize: 11, fontWeight: 600, letterSpacing: "0.08em",
+            border: "1px solid #C8C0B0", color: "var(--text-secondary)",
+            padding: "6px 12px", textDecoration: "none", flexShrink: 0,
+          }}>
+            {isEN ? "VI" : "EN"}
+          </Link>
+          <button onClick={() => setOpen(!open)} style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }} className="mobile-toggle" aria-label="menu">
+            {open ? <X size={22} color="var(--text-primary)" /> : <Menu size={22} color="var(--text-primary)" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
@@ -113,16 +122,16 @@ export default function Navbar() {
           <Link href={contactHref} onClick={() => setOpen(false)} style={{ display: "block", marginTop: 20, textAlign: "center", background: "var(--gold)", color: "#fff", padding: "12px", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
             {contactLabel}
           </Link>
-          <Link href={langTarget} onClick={() => setOpen(false)} style={{ display: "block", marginTop: 10, textAlign: "center", border: "1px solid var(--border)", color: "var(--text-secondary)", padding: "10px", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>
-            {isEN ? "Tiếng Việt (VI)" : "English (EN)"}
-          </Link>
         </div>
       )}
 
       <style>{`
+        .nav-lang { transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
+        .nav-lang:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,150,46,0.06); }
+
         @media (max-width: 900px) {
           .desktop-nav { display: none !important; }
-          .mobile-toggle { display: block !important; }
+          .mobile-top-actions { display: flex !important; }
         }
       `}</style>
     </header>
