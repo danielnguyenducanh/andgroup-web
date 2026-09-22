@@ -35,9 +35,35 @@ export default function Navbar() {
   const links = isEN ? linksEN : linksVI;
   const contactLabel = isEN ? "Contact" : "Liên hệ ngay";
   const contactHref = isEN ? "/en/contact" : "/contact";
-  const langTarget = isEN ? "/" : "/en";
   const logoHref = isEN ? "/en" : "/";
   const logoSrc = "/images/adgroup-black-nobg-v2.png";
+
+  // Chuyển ngôn ngữ nhưng GIỮ NGUYÊN trang đang xem (chỉ thêm/bỏ prefix /en),
+  // không navigate về trang chủ. Cấu trúc: VI = không prefix, EN = /en/...
+  const switchLocale = (next: "vi" | "en") => {
+    if (typeof window === "undefined") return;
+    const { pathname, search, hash } = window.location;
+    let base = pathname.replace(/^\/en(?=\/|$)/, "");
+    if (base === "") base = "/";
+    const target = next === "en" ? (base === "/" ? "/en" : `/en${base}`) : base;
+    window.location.href = target + search + hash;
+  };
+
+  // 2 nút VI | EN giống andlaw.vn (chỉ khác màu brand = gold).
+  const LangToggle = () => (
+    <div style={{ display: "flex", gap: 4, fontSize: 11, fontWeight: 600 }}>
+      <button onClick={() => switchLocale("vi")} aria-label="Tiếng Việt" style={{
+        padding: "5px 10px", borderRadius: 2, border: "none", cursor: "pointer", letterSpacing: "0.06em",
+        background: !isEN ? "var(--gold)" : "transparent",
+        color: !isEN ? "#fff" : "var(--text-secondary)", transition: "all 0.2s",
+      }}>VI</button>
+      <button onClick={() => switchLocale("en")} aria-label="English" style={{
+        padding: "5px 10px", borderRadius: 2, border: "none", cursor: "pointer", letterSpacing: "0.06em",
+        background: isEN ? "var(--gold)" : "transparent",
+        color: isEN ? "#fff" : "var(--text-secondary)", transition: "all 0.2s",
+      }}>EN</button>
+    </div>
+  );
 
   return (
     <header style={{
@@ -77,15 +103,7 @@ export default function Navbar() {
             </Link>
           ))}
           {/* Language switcher */}
-          <Link href={langTarget} style={{
-            fontSize: 11, fontWeight: 600, letterSpacing: "0.08em",
-            border: "1px solid var(--border-dark, #C8C0B0)",
-            color: "var(--text-secondary)",
-            padding: "6px 12px", textDecoration: "none",
-            flexShrink: 0, transition: "border-color 0.2s, color 0.2s",
-          }}>
-            {isEN ? "VI" : "EN"}
-          </Link>
+          <LangToggle />
           <Link href={contactHref} style={{
             fontSize: 13, fontWeight: 500, letterSpacing: "0.06em",
             background: "var(--gold)", color: "#fff",
@@ -98,13 +116,7 @@ export default function Navbar() {
 
         {/* Mobile: language toggle hiện ngay topbar cạnh hamburger (giống andlaw.vn) */}
         <div className="mobile-top-actions" style={{ display: "none", alignItems: "center", gap: 8, flexShrink: 0 }}>
-          <Link href={langTarget} className="nav-lang" style={{
-            fontSize: 11, fontWeight: 600, letterSpacing: "0.08em",
-            border: "1px solid #C8C0B0", color: "var(--text-secondary)",
-            padding: "6px 12px", textDecoration: "none", flexShrink: 0,
-          }}>
-            {isEN ? "VI" : "EN"}
-          </Link>
+          <LangToggle />
           <button onClick={() => setOpen(!open)} style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }} className="mobile-toggle" aria-label="menu">
             {open ? <X size={22} color="var(--text-primary)" /> : <Menu size={22} color="var(--text-primary)" />}
           </button>
