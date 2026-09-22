@@ -72,6 +72,9 @@ function normalize(raw: RawPost): InsightPost {
 }
 
 async function supabaseGet(path: string): Promise<RawPost[]> {
+  // Guard: thiếu env (ví dụ build ở môi trường chưa inject) → trả rỗng,
+  // không crash prerender. Bài sẽ tự hiện khi runtime có env + ISR revalidate.
+  if (!SUPABASE_URL || !SUPABASE_KEY) return [];
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     headers: {
       apikey: SUPABASE_KEY,

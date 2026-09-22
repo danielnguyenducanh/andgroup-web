@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Route API động — không prerender lúc build (tránh crash khi collect page data
+// nếu RESEND_API_KEY chưa được inject ở giai đoạn build).
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const body = await req.json();
     const { name, email, company, phone, service, message } = body;
