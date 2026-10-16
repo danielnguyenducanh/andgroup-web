@@ -2,6 +2,7 @@
 // Server component: đọc 3 bài mới nhất brand=andgroup-corp, TỰ ẨN khi 0 bài (không hiện khối trống).
 // Best practice landing page: blog là vệ tinh SEO, đặt trước section liên hệ, có nút "Xem tất cả".
 import Link from 'next/link';
+import Image from 'next/image';
 import { getInsights, insightPath } from '@/lib/insights';
 
 interface Props {
@@ -50,9 +51,8 @@ export default async function LatestInsights({ lang = 'vi' }: Props) {
               }}
             >
               {a.cover_image_url && (
-                <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: 'var(--bg-secondary)' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={a.cover_image_url} alt={a.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: 'var(--bg-secondary)' }}>
+                  <Image src={a.cover_image_url} alt={a.title} loading="lazy" fill sizes="(max-width: 768px) 100vw, 350px" style={{ objectFit: 'cover' }} />
                 </div>
               )}
               <div style={{ padding: '1.4rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

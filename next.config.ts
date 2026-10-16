@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "andlaw.vn" },
       { protocol: "https", hostname: "andacc.vn" },
       { protocol: "https", hostname: "andgroup.com.vn" },
+      { protocol: "https", hostname: "rlfprfjdxzkcglubnlec.supabase.co", pathname: "/storage/v1/object/public/**" },
     ],
   },
 };

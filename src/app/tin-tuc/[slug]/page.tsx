@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { getInsightBySlug } from '@/lib/insights';
 
@@ -59,7 +60,19 @@ export default async function TinTucDetail({ params }: PageProps) {
   const post = await getInsightBySlug(slug, 'vi');
   if (!post) notFound();
 
-  const contentHtml = stripDuplicateCover(post.content || '', post.cover_image_url);
+  let contentHtml = stripDuplicateCover(post.content || '', post.cover_image_url);
+  contentHtml = contentHtml.replace(/<img\b[^>]*>/gi, (tag) => {
+    const m = tag.match(/\ssrc="([^"]+)"/i);
+    if (!m) return tag;
+    let out = tag;
+    if (m[1].startsWith('https://rlfprfjdxzkcglubnlec.supabase.co/')) {
+      const opt = '/_next/image?url=' + encodeURIComponent(m[1]) + '&amp;w=1080&amp;q=75';
+      out = out.replace(m[0], ' src="' + opt + '"').replace(/\ssrcset="[^"]*"/i, '');
+    }
+    if (!/\sloading=/i.test(out)) out = out.replace(/<img\b/i, '<img loading="lazy" decoding="async"');
+    return out;
+  });
+
   const readTime = estimateReadTime(contentHtml);
   const publishDate = new Date(post.published_at).toLocaleDateString('vi-VN', {
     year: 'numeric', month: 'long', day: 'numeric',
@@ -120,8 +133,7 @@ export default async function TinTucDetail({ params }: PageProps) {
         {/* Cover */}
         {post.cover_image_url && (
           <div style={{ maxWidth: '820px', margin: '0 auto', padding: '0 clamp(1.25rem, 5vw, 4rem)' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={post.cover_image_url} alt={post.title} style={{ width: '100%', maxHeight: '420px', objectFit: 'cover', borderRadius: '6px', marginTop: '2rem', display: 'block' }} />
+            <Image src={post.cover_image_url} alt={post.title} width={1640} height={840} sizes="(max-width: 900px) 100vw, 820px" priority style={{ width: '100%', height: 'auto', maxHeight: '420px', objectFit: 'cover', borderRadius: '6px', marginTop: '2rem', display: 'block' }} />
           </div>
         )}
 

@@ -5,6 +5,7 @@
 // giữ tông GOLD (--gold #B8962E) đã có sẵn trong andgroup-web.
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { InsightPost } from '../lib/insights';
 import { insightPath } from '../lib/insights';
 
@@ -86,12 +87,13 @@ export default function InsightsGrid({ articles, isEN, readMore, comingSoon, all
               }}
             >
               {article.cover_image_url && (
-                <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: 'var(--bg-secondary)' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: 'var(--bg-secondary)' }}>
+                  <Image
                     src={article.cover_image_url}
                     alt={article.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 350px"
+                    style={{ objectFit: 'cover' }}
                     loading="lazy"
                   />
                 </div>
