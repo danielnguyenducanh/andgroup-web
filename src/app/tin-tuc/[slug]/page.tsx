@@ -61,6 +61,11 @@ export default async function TinTucDetail({ params }: PageProps) {
   if (!post) notFound();
 
   let contentHtml = stripDuplicateCover(post.content || '', post.cover_image_url);
+  // Link trong bai: mo tab moi (target=_blank) + rel an toan
+  contentHtml = contentHtml.replace(/<a\b([^>]*)>/gi, (tag: string, attrs: string) => {
+    if (/\btarget=/i.test(attrs)) return tag;
+    return '<a' + attrs + ' target="_blank" rel="noopener noreferrer">';
+  });
   contentHtml = contentHtml.replace(/<img\b[^>]*>/gi, (tag) => {
     const m = tag.match(/\ssrc="([^"]+)"/i);
     if (!m) return tag;
