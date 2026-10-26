@@ -1,5 +1,9 @@
+import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight, MapPin, Clock, DollarSign, BookOpen, Heart, Globe, TrendingUp, Zap } from "lucide-react";
+
+export const metadata: Metadata = pageMeta("careers", "en");
 
 const mobileStyles = `
   @media (max-width: 768px) {

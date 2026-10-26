@@ -1,12 +1,10 @@
 import { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Scale, BarChart2, Cpu } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Về A&D Group",
-  description: "A&D Group — hệ sinh thái dịch vụ Pháp lý, Kế toán & Thuế, Công nghệ phục vụ doanh nghiệp, cá nhân và freelancer tại Việt Nam.",
-};
+export const metadata: Metadata = pageMeta("about", "vi");
 
 const values = [
   {

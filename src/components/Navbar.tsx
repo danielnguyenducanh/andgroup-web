@@ -59,19 +59,28 @@ export default function Navbar() {
     window.location.href = target + search + hash;
   };
 
+  // href tĩnh cho 2 nút để Googlebot lần được bản vi/en (26/10/2026: trước là <button> không có href
+  // → Google không tìm thấy /en). onClick vẫn giữ query/hash như cũ.
+  const localeHref = (next: "vi" | "en") => {
+    let base = pathname.replace(/^\/en(?=\/|$)/, "");
+    if (base === "") base = "/";
+    base = next === "en" ? base.replace(/^\/tin-tuc(?=\/|$)/, "/insights") : base.replace(/^\/insights(?=\/|$)/, "/tin-tuc");
+    return next === "en" ? (base === "/" ? "/en" : `/en${base}`) : base;
+  };
+
   // 2 nút VI | EN giống andlaw.vn (chỉ khác màu brand = gold).
   const LangToggle = () => (
     <div style={{ display: "flex", gap: 4, fontSize: 11, fontWeight: 600 }}>
-      <button onClick={() => switchLocale("vi")} aria-label="Tiếng Việt" style={{
+      <a href={localeHref("vi")} hrefLang="vi" onClick={(e) => { e.preventDefault(); switchLocale("vi"); }} aria-label="Tiếng Việt" style={{ textDecoration: "none",
         padding: "5px 10px", borderRadius: 2, border: "none", cursor: "pointer", letterSpacing: "0.06em",
         background: !isEN ? "var(--gold)" : "transparent",
         color: !isEN ? "#fff" : "var(--text-secondary)", transition: "all 0.2s",
-      }}>VI</button>
-      <button onClick={() => switchLocale("en")} aria-label="English" style={{
+      }}>VI</a>
+      <a href={localeHref("en")} hrefLang="en" onClick={(e) => { e.preventDefault(); switchLocale("en"); }} aria-label="English" style={{ textDecoration: "none",
         padding: "5px 10px", borderRadius: 2, border: "none", cursor: "pointer", letterSpacing: "0.06em",
         background: isEN ? "var(--gold)" : "transparent",
         color: isEN ? "#fff" : "var(--text-secondary)", transition: "all 0.2s",
-      }}>EN</button>
+      }}>EN</a>
     </div>
   );
 

@@ -1,5 +1,9 @@
+import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = pageMeta("leadership", "vi");
 
 const mobileStyles = `
   @media (max-width: 768px) {
