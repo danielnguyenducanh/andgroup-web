@@ -1,4 +1,9 @@
 import { MetadataRoute } from "next";
+import { getSitemapPosts, insightPath } from "@/lib/insights";
+
+// 28/10/2026: thêm bài đã đăng (content_posts brand=andgroup-corp), làm mới mỗi giờ + ngay khi ERP đăng bài
+// (/api/revalidate gọi revalidatePath("/sitemap.xml")). Trang tĩnh KHÔNG khai lastmod (trước đây new Date() = tín hiệu giả).
+export const revalidate = 3600;
 
 const BASE_URL = "https://andgroup.com.vn";
 
@@ -35,12 +40,24 @@ const EN_ROUTES: [string, number, Entry["changeFrequency"]][] = [
   ["/en/privacy", 0.3, "yearly"],
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-  return [...VI_ROUTES, ...EN_ROUTES].map(([path, priority, changeFrequency]) => ({
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const entries: MetadataRoute.Sitemap = [...VI_ROUTES, ...EN_ROUTES].map(([path, priority, changeFrequency]) => ({
     url: BASE_URL + path,
-    lastModified: now,
     changeFrequency,
     priority,
   }));
+  try {
+    for (const post of await getSitemapPosts()) {
+      if (!post.slug) continue;
+      entries.push({
+        url: BASE_URL + insightPath(post.lang === "en" ? "en" : "vi", post.slug),
+        ...(post.lastmod ? { lastModified: new Date(post.lastmod) } : {}),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  } catch {
+    // Supabase lỗi: vẫn trả sitemap trang tĩnh.
+  }
+  return entries;
 }

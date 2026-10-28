@@ -122,6 +122,19 @@ export async function getAllInsightSlugs(): Promise<{ slug: string; lang: string
   });
 }
 
+
+/** Sitemap (28/10/2026): bài đã đăng + ngày sửa thật để khai lastmod. */
+export async function getSitemapPosts(): Promise<{ slug: string; lang: string; lastmod: string | null }[]> {
+  const rows = await supabaseGet(
+    `content_posts?brand=eq.${BRAND}&status=eq.published&select=slug,lang,focus_keyword,published_at,updated_at`
+  );
+  return rows.map((r) => {
+    const p = normalize(r);
+    const raw = r as { updated_at?: string | null; published_at?: string | null };
+    return { slug: p.slug, lang: p.lang, lastmod: raw.updated_at ?? raw.published_at ?? null };
+  });
+}
+
 // Đường dẫn: vi → /tin-tuc, /tin-tuc/[slug]; en → /en/insights, /en/insights/[slug]
 export function insightsListPath(lang: string): string {
   return lang === 'en' ? '/en/insights' : '/tin-tuc';

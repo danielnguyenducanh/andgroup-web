@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
+import { pingIndexNow, INDEXNOW_HOST } from '@/lib/indexnow';
 
 /**
- * On-demand ISR revalidation — gọi từ andos-erp khi publish/unpublish bài brand=andgroup-corp.
- * Không có route này thì bài mới phải chờ ISR 60s mới hiện.
- *
+ * On-demand ISR revalidation — gọi từ andos-erp khi publish/unpublish bài.
  * POST /api/revalidate
  * Header: x-revalidate-secret: <ANDGROUP_REVALIDATE_SECRET>
- * Body:   { "paths": ["/tin-tuc", "/tin-tuc/slug-bai", "/en/insights"] }
+ * Body:   { "paths": ["/duong-dan-danh-sach", "/duong-dan-bai"] }  (ERP gửi đúng URL công khai)
+ *
+ * 28/10/2026: ngoài các path ERP gửi, luôn làm mới /sitemap.xml (bài mới vào sitemap ngay,
+ * không chờ 1 giờ) và báo IndexNow cho các URL đó (Bing). Google đọc sitemap + link nội bộ.
  */
 export async function POST(req: NextRequest) {
   const secret = process.env.ANDGROUP_REVALIDATE_SECRET;
@@ -32,6 +34,7 @@ export async function POST(req: NextRequest) {
 
   const done: string[] = [];
   for (const p of paths) {
+    // Chỉ nhận đường dẫn nội bộ, chặn absolute URL / path traversal
     if (typeof p !== 'string' || !p.startsWith('/') || p.startsWith('//') || p.includes('..')) {
       continue;
     }
@@ -39,5 +42,8 @@ export async function POST(req: NextRequest) {
     done.push(p);
   }
 
-  return NextResponse.json({ ok: true, revalidated: done });
+  revalidatePath('/sitemap.xml');
+  const indexnow = await pingIndexNow(done.map((p) => `https://${INDEXNOW_HOST}${p}`));
+
+  return NextResponse.json({ ok: true, revalidated: [...done, '/sitemap.xml'], indexnow });
 }
