@@ -3,6 +3,7 @@ import { Lora, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ErrorReporter from '@/components/ErrorReporter';
 
 const lora = Lora({
   subsets: ["latin", "vietnamese"],
@@ -60,6 +61,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${lora.variable} ${inter.variable}`}>
       <body>
+        <ErrorReporter />
         <Navbar />
         <main>{children}</main>
         <Footer />
