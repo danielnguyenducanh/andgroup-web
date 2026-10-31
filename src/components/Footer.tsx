@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const companies = [
   { name: "A&D Law Firm", url: "https://andlaw.vn" },
   { name: "A&D Accounting & Tax", url: "https://andacc.vn" },
-  { name: "A&D Tech", url: "#" },
+  { name: "A&D Tech", url: "/ecosystem#ad-tech" },
 ];
 
 const products = [
@@ -110,9 +110,9 @@ export default function Footer() {
               {companies.map((c) => (
                 <li key={c.name}>
                   <a
-                    href={c.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={c.url.startsWith("/") ? (isEN ? "/en" + c.url : c.url) : c.url}
+                    target={c.url.startsWith("/") ? undefined : "_blank"}
+                    rel={c.url.startsWith("/") ? undefined : "noopener noreferrer"}
                     style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
                   >
                     {c.name}

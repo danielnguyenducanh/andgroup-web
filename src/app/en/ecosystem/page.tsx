@@ -18,6 +18,7 @@ const mobileStyles = `
 
 const companies = [
   {
+    id: "ad-law",
     logo: "/images/project/logo-andlaw.png",
     logoType: "image" as const,
     tag: "Legal",
@@ -29,6 +30,7 @@ const companies = [
     services: ["Regular legal consultation", "Contract drafting & review", "Litigation & dispute resolution", "Investment & M&A legal", "Intellectual property", "Employment & HR law"],
   },
   {
+    id: "ad-acc",
     logo: "/images/project/logo-andacc.png",
     logoType: "image" as const,
     tag: "Accounting",
@@ -38,6 +40,18 @@ const companies = [
     domain: "andacc.vn",
     desc: "Corporate accounting, tax and finance — accurate, transparent and on time.",
     services: ["Full-service accounting", "Tax advisory & finalization", "Internal audit", "Financial statement preparation", "Corporate financial consulting", "Management accounting"],
+  },
+  {
+    id: "ad-tech",
+    logo: "/images/project/logo-andtech.png",
+    logoType: "text" as const,
+    tag: "Technology",
+    tagColor: "#6B5B95",
+    name: "A&D Tech",
+    url: "#tech-products",
+    domain: "View 3 products",
+    desc: "From internal management and legal research to e-contract signing — A&D Tech fully digitizes legal operations for businesses.",
+    services: ["A&D OS", "QuyĐịnh.vn", "iAgree.vn"],
   },
 ];
 
@@ -55,8 +69,8 @@ const products = [
     name: "QuyĐịnh.vn",
     url: "https://quydinh.vn",
     domain: "quydinh.vn",
-    desc: "Search Vietnamese legal documents with AI — fast, accurate, continuously updated. Ask in natural language, receive sourced answers.",
-    features: ["AI semantic search", "1.5M+ clause database", "Search by document number", "Document validity tracking", "Legal report export", "Integration API"],
+    desc: "Search Vietnamese legal documents with AI — fast, source-backed, continuously updated. Ask in natural language, receive sourced answers.",
+    features: ["AI semantic search", "Article-level validity tracking", "Search by document number", "Document validity tracking", "Legal report export", "Integration API"],
   },
   {
     tag: "Platform",
@@ -106,7 +120,7 @@ export default function EcosystemPageEN() {
           </div>
           <div className="eco-companies-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
             {companies.map((c) => (
-              <div key={c.name} className="card-light" style={{ padding: 40 }}>
+              <div key={c.name} id={c.id} className="card-light" style={{ padding: 40, scrollMarginTop: 100, gridColumn: c.id === "ad-tech" ? "1 / -1" : undefined }}>
                 <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
                   <div>
                     <span style={{
@@ -132,8 +146,8 @@ export default function EcosystemPageEN() {
                   </div>
                   <a
                     href={c.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={c.url.startsWith("#") ? undefined : "_blank"}
+                    rel={c.url.startsWith("#") ? undefined : "noopener noreferrer"}
                     style={{
                       fontSize: 12,
                       color: "var(--text-muted)",
@@ -143,7 +157,7 @@ export default function EcosystemPageEN() {
                       flexShrink: 0,
                     }}
                   >
-                    {c.domain} ↗
+                    {c.domain} {c.url.startsWith("#") ? "↓" : "↗"}
                   </a>
                 </div>
                 <p style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 24 }}>{c.desc}</p>
@@ -162,7 +176,7 @@ export default function EcosystemPageEN() {
       </section>
 
       {/* Products */}
-      <section className="section" style={{ background: "var(--bg-dark)" }}>
+      <section id="tech-products" className="section" style={{ background: "var(--bg-dark)", scrollMarginTop: 80 }}>
         <div className="container">
           <div style={{ marginBottom: 56 }}>
             <span className="label-dark" style={{ display: "block", marginBottom: 16 }}>Tech products</span>

@@ -104,7 +104,7 @@ export default function Home() {
               <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--border)", paddingTop: 36 }}>
                 {[
                   { val: 10, suf: "+", label: "Năm kinh nghiệm" },
-                  { val: 10000, suf: "+", label: "Khách hàng tin tưởng" },
+                  { val: 500, suf: "+", label: "Khách hàng tin tưởng" },
                   { val: 3, suf: "", label: "Công ty thành viên" },
                 ].map((s, i) => (
                   <div key={i} style={{ paddingRight: 24 }}>
@@ -250,9 +250,8 @@ export default function Home() {
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {[
                 { tag: "ERP", tagColor: "#6B9FD4", logo: "/images/project/logo-andos-white.png", name: "A&D Operating System", url: "https://andos.vn", desc: "Nền tảng quản trị doanh nghiệp tích hợp HR, kế toán, hợp đồng và workflow trên một hệ thống duy nhất." },
-                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/logo-quydinh-white.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — chính xác, nhanh, cập nhật mỗi ngày." },
+                { tag: "Legal AI", tagColor: "#9B8FD4", logo: "/images/project/logo-quydinh-white.png", name: "QuyĐịnh.vn", url: "https://quydinh.vn", desc: "Tra cứu toàn bộ văn bản pháp luật Việt Nam bằng AI — nhanh, cập nhật mỗi ngày." },
                 { tag: "Platform", tagColor: "#6BB5A0", logo: "/images/project/logo-iagree-white.png", name: "iAgree.vn", url: "https://iagree.vn", desc: "Ký kết hợp đồng điện tử có giá trị pháp lý, cơ chế escrow bảo vệ cả hai bên." },
-                { tag: "Dịch vụ", tagColor: "#D4A832", logo: "/images/project/logo-andos-white.png", name: "Văn phòng ảo A&D", url: "https://office.andgroup.com.vn", desc: "Địa chỉ đăng ký kinh doanh hợp pháp, hậu thuẫn bởi A&D Law Firm và A&D Accounting & Tax." },
               ].map((p: {tag:string;tagColor:string;logo:string;name:string;url:string;desc:string}, i) => (
                 <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
@@ -272,6 +271,26 @@ export default function Home() {
                   <ArrowUpRight size={16} style={{ color: "rgba(247,243,237,0.25)", flexShrink: 0 }} />
                 </a>
               ))}
+              {/* Dịch vụ của A&D Group — không thuộc A&D Tech, tách riêng khỏi danh sách sản phẩm */}
+              <p style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(247,243,237,0.4)", fontWeight: 600, margin: "28px 0 10px" }}>Dịch vụ của A&D Group</p>
+              <a href="https://office.andgroup.com.vn" target="_blank" rel="noopener noreferrer"
+                style={{ display: "flex", alignItems: "center", gap: 24, padding: "28px 32px", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.3)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)"; }}
+              >
+                <span style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "#D4A832", fontWeight: 600, background: "#D4A83225", padding: "4px 8px", borderRadius: 2, flexShrink: 0, minWidth: 64, textAlign: "center" }}>
+                  Dịch vụ
+                </span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ marginBottom: 6, display: "flex", alignItems: "center", gap: 12 }}>
+                    <Image src="/images/ad-logo-white.png" alt="A&D Group" width={120} height={28}
+                      style={{ height: 28, width: "auto", maxWidth: 140, objectFit: "contain" }} />
+                    <span style={{ fontSize: 15, color: "#F7F3ED", fontWeight: 500 }}>Văn phòng ảo A&D</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: "rgba(247,243,237,0.5)", lineHeight: 1.5 }}>Địa chỉ đăng ký kinh doanh hợp pháp, hậu thuẫn bởi A&D Law Firm và A&D Accounting & Tax.</div>
+                </div>
+                <ArrowUpRight size={16} style={{ color: "rgba(247,243,237,0.25)", flexShrink: 0 }} />
+              </a>
             </div>
           </div>
         </div>
